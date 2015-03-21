@@ -23,3 +23,5 @@ Check out included example project.
 ## License
 
 The MIT License (MIT) - check out included [LICENSE](LICENSE) file
+
+Icons used in example app comes from [icons8.com](http://icons8.com/) site.
