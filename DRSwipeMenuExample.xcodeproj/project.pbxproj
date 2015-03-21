@@ -15,6 +15,7 @@
 		31DA5F2D1ABCFA8200370F59 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DA5F2C1ABCFA8200370F59 /* TableViewController.m */; };
 		31DA5F321ABCFB7700370F59 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DA5F301ABCFB7700370F59 /* TableViewCell.m */; };
 		31DA5F331ABCFB7700370F59 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DA5F311ABCFB7700370F59 /* TableViewCell.xib */; };
+		31DA5F361ABD001300370F59 /* DRSwipeMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DA5F351ABD001300370F59 /* DRSwipeMenuView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,8 @@
 		31DA5F2F1ABCFB7700370F59 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		31DA5F301ABCFB7700370F59 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		31DA5F311ABCFB7700370F59 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		31DA5F341ABD001300370F59 /* DRSwipeMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRSwipeMenuView.h; sourceTree = "<group>"; };
+		31DA5F351ABD001300370F59 /* DRSwipeMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRSwipeMenuView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,8 @@
 		31DA5F2A1ABCF95100370F59 /* DRSwipeMenu */ = {
 			isa = PBXGroup;
 			children = (
+				31DA5F341ABD001300370F59 /* DRSwipeMenuView.h */,
+				31DA5F351ABD001300370F59 /* DRSwipeMenuView.m */,
 			);
 			path = DRSwipeMenu;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31DA5F071ABCF70000370F59 /* AppDelegate.m in Sources */,
+				31DA5F361ABD001300370F59 /* DRSwipeMenuView.m in Sources */,
 				31DA5F321ABCFB7700370F59 /* TableViewCell.m in Sources */,
 				31DA5F041ABCF70000370F59 /* main.m in Sources */,
 				31DA5F2D1ABCFA8200370F59 /* TableViewController.m in Sources */,
