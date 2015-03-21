@@ -13,7 +13,7 @@
 
 @interface TableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet DRSwipeMenuView *swipeMenu;
-@property (weak, nonatomic) TableViewCellMainView *mainView;
+@property (nonatomic, readonly) DRSwipeMenuView *swipeMenuView;
+@property (nonatomic, readonly) TableViewCellMainView *mainView;
 
 @end

@@ -10,11 +10,61 @@
 #import "TableViewCellMainView.h"
 #import "DRSwipeMenuView.h"
 
+@interface TableViewCell ()
+
+@property (nonatomic, strong) DRSwipeMenuView *swipeMenuView;
+@property (nonatomic, strong) TableViewCellMainView *mainView;
+
+@end
+
 @implementation TableViewCell
 
-- (void)awakeFromNib
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    [super awakeFromNib];
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self commonInit];
+    }
+
+    return self;
+}
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self commonInit];
+    }
+
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self commonInit];
+    }
+
+    return self;
+}
+
+- (void)commonInit
+{
+    [self.contentView addSubview:self.swipeMenuView];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[swipeMenu]|"
+                                                                             options:(NSLayoutFormatOptions) 0
+                                                                             metrics:nil
+                                                                               views:@{
+                                                                                   @"swipeMenu": self.swipeMenuView
+                                                                               }]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[swipeMenu]|"
+                                                                             options:(NSLayoutFormatOptions) 0
+                                                                             metrics:nil
+                                                                               views:@{
+                                                                                   @"swipeMenu": self.swipeMenuView
+                                                                               }]];
+    [self.swipeMenuView setMainView:self.mainView];
     [self cleanUp];
 }
 
@@ -27,18 +77,27 @@
 - (void)cleanUp
 {
     self.mainView.textLabel.text = nil;
-    [self.swipeMenu closeMenuAnimated:NO];
+    [self.swipeMenuView closeMenuAnimated:NO];
 }
 
 - (TableViewCellMainView *)mainView
 {
     if (!_mainView) {
-        TableViewCellMainView *view = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TableViewCellMainView class]) owner:self options:nil].firstObject;
-        [self.swipeMenu setMainView:view];
-        _mainView = view;
+        _mainView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TableViewCellMainView class]) owner:self options:nil].firstObject;
     }
 
     return _mainView;
+}
+
+- (DRSwipeMenuView *)swipeMenuView
+{
+    if (!_swipeMenuView) {
+        _swipeMenuView = [[DRSwipeMenuView alloc] init];
+        _swipeMenuView.translatesAutoresizingMaskIntoConstraints = NO;
+        _swipeMenuView.menuBackgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1];
+    }
+
+    return _swipeMenuView;
 }
 
 @end
