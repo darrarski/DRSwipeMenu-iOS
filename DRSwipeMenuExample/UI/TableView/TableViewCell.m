@@ -95,6 +95,55 @@
         _swipeMenuView = [[DRSwipeMenuView alloc] init];
         _swipeMenuView.translatesAutoresizingMaskIntoConstraints = NO;
         _swipeMenuView.menuBackgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1];
+        [_swipeMenuView setOpenHandleView:^UIView *() {
+            UIView *view = [[UIView alloc] init];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrow_left"]];
+            imageView.translatesAutoresizingMaskIntoConstraints = NO;
+            imageView.contentMode = UIViewContentModeCenter;
+
+            [view addSubview:imageView];
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[imageView]-(margin)-|"
+                                                                         options:(NSLayoutFormatOptions) 0
+                                                                         metrics:@{
+                                                                             @"margin": @8
+                                                                         }
+                                                                           views:@{
+                                                                               @"imageView": imageView
+                                                                           }]];
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|"
+                                                                         options:(NSLayoutFormatOptions) 0
+                                                                         metrics:nil
+                                                                           views:@{
+                                                                               @"imageView": imageView
+                                                                           }]];
+
+            return view;
+        }()];
+        [_swipeMenuView setCloseHandleView:^UIView *() {
+            UIView *view = [[UIView alloc] init];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrow_right"]];
+            imageView.translatesAutoresizingMaskIntoConstraints = NO;
+            imageView.contentMode = UIViewContentModeCenter;
+
+            [view addSubview:imageView];
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[imageView]-(margin)-|"
+                                                                         options:(NSLayoutFormatOptions) 0
+                                                                         metrics:@{
+                                                                             @"margin": @8
+                                                                         }
+                                                                           views:@{
+                                                                               @"imageView": imageView
+                                                                           }]];
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|"
+                                                                         options:(NSLayoutFormatOptions) 0
+                                                                         metrics:nil
+                                                                           views:@{
+                                                                               @"imageView": imageView
+                                                                           }]];
+
+            return view;
+        }()];
+
     }
 
     return _swipeMenuView;
