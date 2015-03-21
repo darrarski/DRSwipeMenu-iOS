@@ -95,6 +95,7 @@
         _swipeMenuView = [[DRSwipeMenuView alloc] init];
         _swipeMenuView.translatesAutoresizingMaskIntoConstraints = NO;
         _swipeMenuView.menuBackgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1];
+        __weak typeof(self) welf = self;
         [_swipeMenuView setOpenHandleView:^UIView *() {
             UIView *view = [[UIView alloc] init];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrow_left"]];
@@ -116,6 +117,8 @@
                                                                            views:@{
                                                                                @"imageView": imageView
                                                                            }]];
+            UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:welf action:@selector(didTapOpenHandle:)];
+            [view addGestureRecognizer:tgr];
 
             return view;
         }()];
@@ -140,6 +143,8 @@
                                                                            views:@{
                                                                                @"imageView": imageView
                                                                            }]];
+            UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:welf action:@selector(didTapOnCloseHandle:)];
+            [view addGestureRecognizer:tgr];
 
             return view;
         }()];
@@ -147,6 +152,16 @@
     }
 
     return _swipeMenuView;
+}
+
+- (void)didTapOpenHandle:(id)sender
+{
+    [self.swipeMenuView revealMenuAnimated:YES];
+}
+
+- (void)didTapOnCloseHandle:(id)sender
+{
+    [self.swipeMenuView closeMenuAnimated:YES];
 }
 
 @end
