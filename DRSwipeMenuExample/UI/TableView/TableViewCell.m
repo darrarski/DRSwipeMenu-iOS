@@ -7,6 +7,8 @@
 //
 
 #import "TableViewCell.h"
+#import "TableViewCellMainView.h"
+#import "DRSwipeMenuView.h"
 
 @implementation TableViewCell
 
@@ -24,7 +26,19 @@
 
 - (void)cleanUp
 {
-    self.cellLabel.text = nil;
+    self.mainView.textLabel.text = nil;
+    [self.swipeMenu closeMenuAnimated:NO];
+}
+
+- (TableViewCellMainView *)mainView
+{
+    if (!_mainView) {
+        TableViewCellMainView *view = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TableViewCellMainView class]) owner:self options:nil].firstObject;
+        [self.swipeMenu setMainView:view];
+        _mainView = view;
+    }
+
+    return _mainView;
 }
 
 @end

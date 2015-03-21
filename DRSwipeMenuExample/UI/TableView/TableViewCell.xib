@@ -13,24 +13,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eX-11-ijC">
-                        <rect key="frame" x="16" y="16" width="288" height="67"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vuH-5v-WAw" customClass="DRSwipeMenuView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="8eX-11-ijC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="9Bx-Xf-27F"/>
-                    <constraint firstItem="8eX-11-ijC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ZB6-vq-bXF"/>
-                    <constraint firstAttribute="trailing" secondItem="8eX-11-ijC" secondAttribute="trailing" constant="16" id="ZRn-uV-A1b"/>
-                    <constraint firstAttribute="bottom" secondItem="8eX-11-ijC" secondAttribute="bottom" constant="16" id="ptF-bE-2Jm"/>
+                    <constraint firstItem="vuH-5v-WAw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="TRb-VA-ktJ"/>
+                    <constraint firstAttribute="bottom" secondItem="vuH-5v-WAw" secondAttribute="bottom" id="cNi-BK-fqm"/>
+                    <constraint firstAttribute="trailing" secondItem="vuH-5v-WAw" secondAttribute="trailing" id="i21-Z6-rvk"/>
+                    <constraint firstItem="vuH-5v-WAw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="jEr-ZM-x8f"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="cellLabel" destination="8eX-11-ijC" id="cAY-A2-cFk"/>
+                <outlet property="swipeMenu" destination="vuH-5v-WAw" id="3C7-FH-YH6"/>
             </connections>
-            <point key="canvasLocation" x="531" y="431"/>
+            <point key="canvasLocation" x="531" y="430"/>
         </tableViewCell>
     </objects>
 </document>

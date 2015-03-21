@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class DRSwipeMenuView;
+@class TableViewCellMainView;
+
 @interface TableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *cellLabel;
+@property (weak, nonatomic) IBOutlet DRSwipeMenuView *swipeMenu;
+@property (weak, nonatomic) TableViewCellMainView *mainView;
 
 @end
