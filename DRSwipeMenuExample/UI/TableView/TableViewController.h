@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  TableViewController.h
 //  DRSwipeMenuExample
 //
 //  Created by Dariusz Rybicki on 21/03/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface TableViewController : UITableViewController
 
 @end
-
