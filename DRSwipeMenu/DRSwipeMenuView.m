@@ -301,6 +301,16 @@
                                                                                                 @"subview": subview
                                                                                             }]];
     }
+
+    NSLayoutConstraint *openHandleMinWidth = [NSLayoutConstraint constraintWithItem:self.openHandleViewContainer
+                                                                          attribute:NSLayoutAttributeWidth
+                                                                          relatedBy:NSLayoutRelationEqual
+                                                                             toItem:nil
+                                                                          attribute:NSLayoutAttributeNotAnAttribute
+                                                                         multiplier:1
+                                                                           constant:0];
+    openHandleMinWidth.priority = 251;
+    [self.openHandleViewContainer addConstraint:openHandleMinWidth];
 }
 
 #pragma mark - Subviews
