@@ -103,10 +103,11 @@
             imageView.contentMode = UIViewContentModeCenter;
 
             [view addSubview:imageView];
-            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[imageView]-(margin)-|"
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[imageView(width)]-(margin)-|"
                                                                          options:(NSLayoutFormatOptions) 0
                                                                          metrics:@{
-                                                                             @"margin": @8
+                                                                             @"margin": @8,
+                                                                             @"width": @20
                                                                          }
                                                                            views:@{
                                                                                @"imageView": imageView
@@ -129,10 +130,11 @@
             imageView.contentMode = UIViewContentModeCenter;
 
             [view addSubview:imageView];
-            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[imageView]-(margin)-|"
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[imageView(width)]-(margin)-|"
                                                                          options:(NSLayoutFormatOptions) 0
                                                                          metrics:@{
-                                                                             @"margin": @8
+                                                                             @"margin": @8,
+                                                                             @"width": @20
                                                                          }
                                                                            views:@{
                                                                                @"imageView": imageView
