@@ -1,5 +1,9 @@
 # DRSwipeMenu (iOS)
 
+Customizable swipe-to-reveal menu for iOS apps
+
+![DRSwipeMenu iOS screenshot 1](Misc/DRSwipeMenu-iOS-screenshot-1.png "DRSwipeMenu iOS screenshot 1") ![DRSwipeMenu iOS screenshot 2](Misc/DRSwipeMenu-iOS-screenshot-2.png "DRSwipeMenu iOS screenshot 2")
+
 ## Instalation
 
 You can integrate `DRSwipeMenu` with your project using Cocoapods. To do so, you will need to add one of the following lines to your Podfile:
