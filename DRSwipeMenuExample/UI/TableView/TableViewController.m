@@ -90,7 +90,7 @@ static NSString *const CellReuseIdentifier = @"Cell";
             ]];
         }
         else if (indexPath.row == 2) {
-            cell.mainView.textLabel.text = @"Cell with swipe menu that contains many buttons that does not fit on one screen";
+            cell.mainView.textLabel.text = @"Cell with swipe menu that contains many buttons";
             [cell.swipeMenuView setMenuItemViews:@[
                 ^UIView *() {
                     UIButton *button = [[UIButton alloc] init];
