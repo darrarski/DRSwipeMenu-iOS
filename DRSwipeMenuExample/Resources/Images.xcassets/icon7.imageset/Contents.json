@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "medium_volume-50.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "medium_volume-100.png"
+      "scale" : "3x"
     }
   ],
   "info" : {
