@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="odb-AV-ZbS">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--DRSwipeMenu Example-->
         <scene sceneID="URM-hJ-N0c">
             <objects>
                 <tableViewController id="xT8-Dc-SwI" customClass="TableViewController" sceneMemberID="viewController">
@@ -17,7 +18,7 @@
                             <outlet property="delegate" destination="xT8-Dc-SwI" id="wPo-MU-lUX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="AwY-6e-K2j"/>
+                    <navigationItem key="navigationItem" title="DRSwipeMenu Example" id="AwY-6e-K2j"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K9E-Wq-0UG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
