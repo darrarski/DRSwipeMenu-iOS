@@ -13,10 +13,10 @@
 @property (nonatomic, strong) UIColor *menuBackgroundColor;
 
 - (void)setMainView:(UIView *)view;
-- (void)setMenuItemViews:(NSArray *)views;
-- (void)setOpenHandleView:(UIView *)view;
-- (void)setCloseHandleView:(UIView *)view;
-- (void)revealMenuAnimated:(BOOL)animated;
+- (void)setRightMenuItemViews:(NSArray *)views;
+- (void)setRightOpenHandleView:(UIView *)view;
+- (void)setRightCloseHandleView:(UIView *)view;
+- (void)revealRightMenuAnimated:(BOOL)animated;
 - (void)closeMenuAnimated:(BOOL)animated;
 
 @end

@@ -13,9 +13,9 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *closedViewsContainer;
 @property (nonatomic, strong) UIView *mainViewContainer;
-@property (nonatomic, strong) UIView *openHandleViewContainer;
-@property (nonatomic, strong) UIView *closeHandleViewContainer;
-@property (nonatomic, strong) UIView *menuItemViewsContainer;
+@property (nonatomic, strong) UIView *rightOpenHandleViewContainer;
+@property (nonatomic, strong) UIView *rightCloseHandleViewContainer;
+@property (nonatomic, strong) UIView *rightMenuItemViewsContainer;
 
 @end
 
@@ -60,8 +60,8 @@
 {
     _menuBackgroundColor = menuBackgroundColor;
 
-    self.menuItemViewsContainer.backgroundColor = menuBackgroundColor;
-    self.closeHandleViewContainer.backgroundColor = menuBackgroundColor;
+    self.rightMenuItemViewsContainer.backgroundColor = menuBackgroundColor;
+    self.rightCloseHandleViewContainer.backgroundColor = menuBackgroundColor;
 }
 
 - (void)setMainView:(UIView *)view
@@ -90,57 +90,57 @@
                                                                                      }]];
 }
 
-- (void)setMenuItemViews:(NSArray *)views
+- (void)setRightMenuItemViews:(NSArray *)views
 {
-    for (UIView *subview in self.menuItemViewsContainer.subviews) {
+    for (UIView *subview in self.rightMenuItemViewsContainer.subviews) {
         [subview removeFromSuperview];
     }
 
     for (UIView *view in views) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.menuItemViewsContainer addSubview:view];
+        [self.rightMenuItemViewsContainer addSubview:view];
     }
 
     for (UIView *view in views) {
-        [self.menuItemViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
-                                                                                            options:(NSLayoutFormatOptions) 0
-                                                                                            metrics:nil
-                                                                                              views:@{
-                                                                                                  @"view": view
-                                                                                              }]];
+        [self.rightMenuItemViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
+                                                                                                 options:(NSLayoutFormatOptions) 0
+                                                                                                 metrics:nil
+                                                                                                   views:@{
+                                                                                                       @"view" : view
+                                                                                                   }]];
 
         if ([view isEqual:views.firstObject]) {
-            [self.menuItemViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]"
-                                                                                                options:(NSLayoutFormatOptions) 0
-                                                                                                metrics:nil
-                                                                                                  views:@{
-                                                                                                      @"view": view
-                                                                                                  }]];
+            [self.rightMenuItemViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]"
+                                                                                                     options:(NSLayoutFormatOptions) 0
+                                                                                                     metrics:nil
+                                                                                                       views:@{
+                                                                                                           @"view" : view
+                                                                                                       }]];
         }
 
         if ([view isEqual:views.lastObject]) {
-            [self.menuItemViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view]|"
-                                                                                                options:(NSLayoutFormatOptions) 0
-                                                                                                metrics:nil
-                                                                                                  views:@{
-                                                                                                      @"view": view
-                                                                                                  }]];
+            [self.rightMenuItemViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view]|"
+                                                                                                     options:(NSLayoutFormatOptions) 0
+                                                                                                     metrics:nil
+                                                                                                       views:@{
+                                                                                                           @"view" : view
+                                                                                                       }]];
         }
         else {
-            [self.menuItemViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view][nextView]"
-                                                                                                options:(NSLayoutFormatOptions) 0
-                                                                                                metrics:nil
-                                                                                                  views:@{
-                                                                                                      @"view": view,
-                                                                                                      @"nextView": views[[views indexOfObject:view] + 1]
-                                                                                                  }]];
+            [self.rightMenuItemViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view][nextView]"
+                                                                                                     options:(NSLayoutFormatOptions) 0
+                                                                                                     metrics:nil
+                                                                                                       views:@{
+                                                                                                           @"view" : view,
+                                                                                                           @"nextView" : views[[views indexOfObject:view] + 1]
+                                                                                                       }]];
         }
     }
 }
 
-- (void)setOpenHandleView:(UIView *)view
+- (void)setRightOpenHandleView:(UIView *)view
 {
-    for (UIView *subview in self.openHandleViewContainer.subviews) {
+    for (UIView *subview in self.rightOpenHandleViewContainer.subviews) {
         [subview removeFromSuperview];
     }
 
@@ -149,24 +149,24 @@
     }
 
     view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.openHandleViewContainer addSubview:view];
-    [self.openHandleViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
-                                                                                         options:(NSLayoutFormatOptions) 0
-                                                                                         metrics:nil
-                                                                                           views:@{
-                                                                                               @"view": view
-                                                                                           }]];
-    [self.openHandleViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
-                                                                                         options:(NSLayoutFormatOptions) 0
-                                                                                         metrics:nil
-                                                                                           views:@{
-                                                                                               @"view": view
-                                                                                           }]];
+    [self.rightOpenHandleViewContainer addSubview:view];
+    [self.rightOpenHandleViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
+                                                                                              options:(NSLayoutFormatOptions) 0
+                                                                                              metrics:nil
+                                                                                                views:@{
+                                                                                                    @"view" : view
+                                                                                                }]];
+    [self.rightOpenHandleViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
+                                                                                              options:(NSLayoutFormatOptions) 0
+                                                                                              metrics:nil
+                                                                                                views:@{
+                                                                                                    @"view" : view
+                                                                                                }]];
 }
 
-- (void)setCloseHandleView:(UIView *)view
+- (void)setRightCloseHandleView:(UIView *)view
 {
-    for (UIView *subview in self.closeHandleViewContainer.subviews) {
+    for (UIView *subview in self.rightCloseHandleViewContainer.subviews) {
         [subview removeFromSuperview];
     }
 
@@ -175,27 +175,27 @@
     }
 
     view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.closeHandleViewContainer addSubview:view];
-    [self.closeHandleViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
-                                                                                          options:(NSLayoutFormatOptions) 0
-                                                                                          metrics:nil
-                                                                                            views:@{
-                                                                                                @"view": view
-                                                                                            }]];
-    [self.closeHandleViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
-                                                                                          options:(NSLayoutFormatOptions) 0
-                                                                                          metrics:nil
-                                                                                            views:@{
-                                                                                                @"view": view
-                                                                                            }]];
+    [self.rightCloseHandleViewContainer addSubview:view];
+    [self.rightCloseHandleViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
+                                                                                               options:(NSLayoutFormatOptions) 0
+                                                                                               metrics:nil
+                                                                                                 views:@{
+                                                                                                     @"view" : view
+                                                                                                 }]];
+    [self.rightCloseHandleViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
+                                                                                               options:(NSLayoutFormatOptions) 0
+                                                                                               metrics:nil
+                                                                                                 views:@{
+                                                                                                     @"view" : view
+                                                                                                 }]];
 }
 
-- (void)revealMenuAnimated:(BOOL)animated
+- (void)revealRightMenuAnimated:(BOOL)animated
 {
     CGRect rect = (CGRect) {
-        .origin.x = self.closeHandleViewContainer.frame.origin.x,
+        .origin.x = self.rightCloseHandleViewContainer.frame.origin.x,
         .origin.y = 0,
-        .size.width = MIN(self.scrollView.frame.size.width, self.closeHandleViewContainer.frame.size.width + self.menuItemViewsContainer.frame.size.width),
+        .size.width = MIN(self.scrollView.frame.size.width, self.rightCloseHandleViewContainer.frame.size.width + self.rightMenuItemViewsContainer.frame.size.width),
         .size.height = self.scrollView.frame.size.height
     };
 
@@ -235,9 +235,9 @@
     [self addSubview:self.scrollView];
     [self.scrollView addSubview:self.closedViewsContainer];
     [self.closedViewsContainer addSubview:self.mainViewContainer];
-    [self.closedViewsContainer addSubview:self.openHandleViewContainer];
-    [self.scrollView addSubview:self.closeHandleViewContainer];
-    [self.scrollView addSubview:self.menuItemViewsContainer];
+    [self.closedViewsContainer addSubview:self.rightOpenHandleViewContainer];
+    [self.scrollView addSubview:self.rightCloseHandleViewContainer];
+    [self.scrollView addSubview:self.rightMenuItemViewsContainer];
 
     [self setupScrollViewConstraints];
     [self setupScrollViewSubviewsConstraints];
@@ -268,8 +268,8 @@
                                                                               views:@{
                                                                                   @"closedView": self.closedViewsContainer,
                                                                                   @"scrollView": self.scrollView,
-                                                                                  @"closeHandle": self.closeHandleViewContainer,
-                                                                                  @"menu": self.menuItemViewsContainer
+                                                                                  @"closeHandle": self.rightCloseHandleViewContainer,
+                                                                                  @"menu": self.rightMenuItemViewsContainer
                                                                               }]];
 
     for (UIView *subview in self.scrollView.subviews) {
@@ -290,7 +290,7 @@
                                                                                       metrics:nil
                                                                                         views:@{
                                                                                             @"main": self.mainViewContainer,
-                                                                                            @"openHandle": self.openHandleViewContainer
+                                                                                            @"openHandle": self.rightOpenHandleViewContainer
                                                                                         }]];
 
     for (UIView *subview in self.closedViewsContainer.subviews) {
@@ -302,7 +302,7 @@
                                                                                             }]];
     }
 
-    NSLayoutConstraint *openHandleMinWidth = [NSLayoutConstraint constraintWithItem:self.openHandleViewContainer
+    NSLayoutConstraint *openHandleMinWidth = [NSLayoutConstraint constraintWithItem:self.rightOpenHandleViewContainer
                                                                           attribute:NSLayoutAttributeWidth
                                                                           relatedBy:NSLayoutRelationEqual
                                                                              toItem:nil
@@ -310,7 +310,7 @@
                                                                          multiplier:1
                                                                            constant:0];
     openHandleMinWidth.priority = 251;
-    [self.openHandleViewContainer addConstraint:openHandleMinWidth];
+    [self.rightOpenHandleViewContainer addConstraint:openHandleMinWidth];
 }
 
 #pragma mark - Subviews
@@ -349,37 +349,37 @@
     return _mainViewContainer;
 }
 
-- (UIView *)openHandleViewContainer
+- (UIView *)rightOpenHandleViewContainer
 {
-    if (!_openHandleViewContainer) {
-        _openHandleViewContainer = [[UIView alloc] init];
-        _openHandleViewContainer.translatesAutoresizingMaskIntoConstraints = NO;
-        _openHandleViewContainer.backgroundColor = [UIColor clearColor];
+    if (!_rightOpenHandleViewContainer) {
+        _rightOpenHandleViewContainer = [[UIView alloc] init];
+        _rightOpenHandleViewContainer.translatesAutoresizingMaskIntoConstraints = NO;
+        _rightOpenHandleViewContainer.backgroundColor = [UIColor clearColor];
     }
 
-    return _openHandleViewContainer;
+    return _rightOpenHandleViewContainer;
 }
 
-- (UIView *)closeHandleViewContainer
+- (UIView *)rightCloseHandleViewContainer
 {
-    if (!_closeHandleViewContainer) {
-        _closeHandleViewContainer = [[UIView alloc] init];
-        _closeHandleViewContainer.translatesAutoresizingMaskIntoConstraints = NO;
-        _closeHandleViewContainer.backgroundColor = self.menuBackgroundColor;
+    if (!_rightCloseHandleViewContainer) {
+        _rightCloseHandleViewContainer = [[UIView alloc] init];
+        _rightCloseHandleViewContainer.translatesAutoresizingMaskIntoConstraints = NO;
+        _rightCloseHandleViewContainer.backgroundColor = self.menuBackgroundColor;
     }
 
-    return _closeHandleViewContainer;
+    return _rightCloseHandleViewContainer;
 }
 
-- (UIView *)menuItemViewsContainer
+- (UIView *)rightMenuItemViewsContainer
 {
-    if (!_menuItemViewsContainer) {
-        _menuItemViewsContainer = [[UIView alloc] init];
-        _menuItemViewsContainer.translatesAutoresizingMaskIntoConstraints = NO;
-        _menuItemViewsContainer.backgroundColor = self.menuBackgroundColor;
+    if (!_rightMenuItemViewsContainer) {
+        _rightMenuItemViewsContainer = [[UIView alloc] init];
+        _rightMenuItemViewsContainer.translatesAutoresizingMaskIntoConstraints = NO;
+        _rightMenuItemViewsContainer.backgroundColor = self.menuBackgroundColor;
     }
 
-    return _menuItemViewsContainer;
+    return _rightMenuItemViewsContainer;
 }
 
 #pragma mark - UIScrollViewDelegate

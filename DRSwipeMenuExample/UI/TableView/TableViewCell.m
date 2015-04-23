@@ -96,7 +96,7 @@
         _swipeMenuView.translatesAutoresizingMaskIntoConstraints = NO;
         _swipeMenuView.menuBackgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1];
         __weak typeof(self) welf = self;
-        [_swipeMenuView setOpenHandleView:^UIView *() {
+        [_swipeMenuView setRightOpenHandleView:^UIView *() {
             UIView *view = [[UIView alloc] init];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrow_left"]];
             imageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -106,24 +106,24 @@
             [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[imageView(width)]-(margin)-|"
                                                                          options:(NSLayoutFormatOptions) 0
                                                                          metrics:@{
-                                                                             @"margin": @8,
-                                                                             @"width": @20
+                                                                             @"margin" : @8,
+                                                                             @"width" : @20
                                                                          }
                                                                            views:@{
-                                                                               @"imageView": imageView
+                                                                               @"imageView" : imageView
                                                                            }]];
             [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|"
                                                                          options:(NSLayoutFormatOptions) 0
                                                                          metrics:nil
                                                                            views:@{
-                                                                               @"imageView": imageView
+                                                                               @"imageView" : imageView
                                                                            }]];
             UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:welf action:@selector(didTapOpenHandle:)];
             [view addGestureRecognizer:tgr];
 
             return view;
         }()];
-        [_swipeMenuView setCloseHandleView:^UIView *() {
+        [_swipeMenuView setRightCloseHandleView:^UIView *() {
             UIView *view = [[UIView alloc] init];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrow_right"]];
             imageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -133,17 +133,17 @@
             [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[imageView(width)]-(margin)-|"
                                                                          options:(NSLayoutFormatOptions) 0
                                                                          metrics:@{
-                                                                             @"margin": @8,
-                                                                             @"width": @20
+                                                                             @"margin" : @8,
+                                                                             @"width" : @20
                                                                          }
                                                                            views:@{
-                                                                               @"imageView": imageView
+                                                                               @"imageView" : imageView
                                                                            }]];
             [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|"
                                                                          options:(NSLayoutFormatOptions) 0
                                                                          metrics:nil
                                                                            views:@{
-                                                                               @"imageView": imageView
+                                                                               @"imageView" : imageView
                                                                            }]];
             UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:welf action:@selector(didTapOnCloseHandle:)];
             [view addGestureRecognizer:tgr];
@@ -158,7 +158,7 @@
 
 - (void)didTapOpenHandle:(id)sender
 {
-    [self.swipeMenuView revealMenuAnimated:YES];
+    [self.swipeMenuView revealRightMenuAnimated:YES];
 }
 
 - (void)didTapOnCloseHandle:(id)sender

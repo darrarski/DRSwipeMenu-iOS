@@ -49,7 +49,7 @@ static NSString *const CellReuseIdentifier = @"Cell";
 
         if (indexPath.row == 0) {
             cell.mainView.textLabel.text = @"Cell with swipe menu that contains one button";
-            [cell.swipeMenuView setMenuItemViews:@[
+            [cell.swipeMenuView setRightMenuItemViews:@[
                 ^UIView *() {
                     UIButton *button = [[UIButton alloc] init];
                     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon1"]] forState:UIControlStateNormal];
@@ -62,7 +62,7 @@ static NSString *const CellReuseIdentifier = @"Cell";
         }
         else if (indexPath.row == 1) {
             cell.mainView.textLabel.text = @"Cell with swipe menu that contains several buttons";
-            [cell.swipeMenuView setMenuItemViews:@[
+            [cell.swipeMenuView setRightMenuItemViews:@[
                 ^UIView *() {
                     UIButton *button = [[UIButton alloc] init];
                     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon2"]] forState:UIControlStateNormal];
@@ -91,7 +91,7 @@ static NSString *const CellReuseIdentifier = @"Cell";
         }
         else if (indexPath.row == 2) {
             cell.mainView.textLabel.text = @"Cell with swipe menu that contains many buttons";
-            [cell.swipeMenuView setMenuItemViews:@[
+            [cell.swipeMenuView setRightMenuItemViews:@[
                 ^UIView *() {
                     UIButton *button = [[UIButton alloc] init];
                     [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon5"]] forState:UIControlStateNormal];
@@ -144,7 +144,7 @@ static NSString *const CellReuseIdentifier = @"Cell";
         }
         if (indexPath.row == 3) {
             cell.mainView.textLabel.text = @"Cell with swipe menu that contains custom view with text label";
-            [cell.swipeMenuView setMenuItemViews:@[
+            [cell.swipeMenuView setRightMenuItemViews:@[
                 ^UIView *() {
                     UIView *view = [[UIView alloc] init];
                     UILabel *label = [[UILabel alloc] init];
@@ -154,16 +154,16 @@ static NSString *const CellReuseIdentifier = @"Cell";
                     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[label]-(margin)-|"
                                                                                  options:(NSLayoutFormatOptions) 0
                                                                                  metrics:@{
-                                                                                     @"margin": @16
+                                                                                     @"margin" : @16
                                                                                  }
                                                                                    views:@{
-                                                                                       @"label": label
+                                                                                       @"label" : label
                                                                                    }]];
                     [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[label]|"
                                                                                  options:(NSLayoutFormatOptions) 0
                                                                                  metrics:nil
                                                                                    views:@{
-                                                                                       @"label": label
+                                                                                       @"label" : label
                                                                                    }]];
                     label.text = @"Here is the UILabel";
 
