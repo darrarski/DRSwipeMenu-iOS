@@ -16,4 +16,7 @@
 @property (nonatomic, readonly) DRSwipeMenuView *swipeMenuView;
 @property (nonatomic, readonly) TableViewCellMainView *mainView;
 
+- (void)showLeftOpenCloseHandle:(BOOL)show;
+- (void)showRightOpenCloseHandle:(BOOL)show;
+
 @end

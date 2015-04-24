@@ -95,13 +95,34 @@
         _swipeMenuView = [[DRSwipeMenuView alloc] init];
         _swipeMenuView.translatesAutoresizingMaskIntoConstraints = NO;
         _swipeMenuView.menuBackgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1];
+    }
+    return _swipeMenuView;
+}
+
+- (void)didTapLeftOpenHandle:(id)sender
+{
+    [self.swipeMenuView revealLeftMenuAnimated:YES];
+}
+
+- (void)didTapRightOpenHandle:(id)sender
+{
+    [self.swipeMenuView revealRightMenuAnimated:YES];
+}
+
+- (void)didTapOnCloseHandle:(id)sender
+{
+    [self.swipeMenuView closeMenuAnimated:YES];
+}
+
+- (void)showLeftOpenCloseHandle:(BOOL)show
+{
+    if (show) {
         __weak typeof(self) welf = self;
-        [_swipeMenuView setRightOpenHandleView:^UIView *() {
+        [self.swipeMenuView setLeftOpenHandleView:^UIView *() {
             UIView *view = [[UIView alloc] init];
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrow_left"]];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrow_right"]];
             imageView.translatesAutoresizingMaskIntoConstraints = NO;
             imageView.contentMode = UIViewContentModeCenter;
-
             [view addSubview:imageView];
             [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[imageView(width)]-(margin)-|"
                                                                          options:(NSLayoutFormatOptions) 0
@@ -118,17 +139,15 @@
                                                                            views:@{
                                                                                @"imageView" : imageView
                                                                            }]];
-            UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:welf action:@selector(didTapOpenHandle:)];
+            UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:welf action:@selector(didTapLeftOpenHandle:)];
             [view addGestureRecognizer:tgr];
-
             return view;
         }()];
-        [_swipeMenuView setRightCloseHandleView:^UIView *() {
+        [self.swipeMenuView setLeftCloseHandleView:^UIView *() {
             UIView *view = [[UIView alloc] init];
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrow_right"]];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrow_left"]];
             imageView.translatesAutoresizingMaskIntoConstraints = NO;
             imageView.contentMode = UIViewContentModeCenter;
-
             [view addSubview:imageView];
             [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[imageView(width)]-(margin)-|"
                                                                          options:(NSLayoutFormatOptions) 0
@@ -147,23 +166,74 @@
                                                                            }]];
             UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:welf action:@selector(didTapOnCloseHandle:)];
             [view addGestureRecognizer:tgr];
-
             return view;
         }()];
-
     }
-
-    return _swipeMenuView;
+    else {
+        [self.swipeMenuView setLeftOpenHandleView:nil];
+        [self.swipeMenuView setLeftCloseHandleView:nil];
+    }
 }
 
-- (void)didTapOpenHandle:(id)sender
+- (void)showRightOpenCloseHandle:(BOOL)show
 {
-    [self.swipeMenuView revealRightMenuAnimated:YES];
-}
-
-- (void)didTapOnCloseHandle:(id)sender
-{
-    [self.swipeMenuView closeMenuAnimated:YES];
+    if (show) {
+        __weak typeof(self) welf = self;
+        [self.swipeMenuView setRightOpenHandleView:^UIView *() {
+            UIView *view = [[UIView alloc] init];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrow_left"]];
+            imageView.translatesAutoresizingMaskIntoConstraints = NO;
+            imageView.contentMode = UIViewContentModeCenter;
+            [view addSubview:imageView];
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[imageView(width)]-(margin)-|"
+                                                                         options:(NSLayoutFormatOptions) 0
+                                                                         metrics:@{
+                                                                             @"margin" : @8,
+                                                                             @"width" : @20
+                                                                         }
+                                                                           views:@{
+                                                                               @"imageView" : imageView
+                                                                           }]];
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|"
+                                                                         options:(NSLayoutFormatOptions) 0
+                                                                         metrics:nil
+                                                                           views:@{
+                                                                               @"imageView" : imageView
+                                                                           }]];
+            UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:welf action:@selector(didTapRightOpenHandle:)];
+            [view addGestureRecognizer:tgr];
+            return view;
+        }()];
+        [self.swipeMenuView setRightCloseHandleView:^UIView *() {
+            UIView *view = [[UIView alloc] init];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_arrow_right"]];
+            imageView.translatesAutoresizingMaskIntoConstraints = NO;
+            imageView.contentMode = UIViewContentModeCenter;
+            [view addSubview:imageView];
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[imageView(width)]-(margin)-|"
+                                                                         options:(NSLayoutFormatOptions) 0
+                                                                         metrics:@{
+                                                                             @"margin" : @8,
+                                                                             @"width" : @20
+                                                                         }
+                                                                           views:@{
+                                                                               @"imageView" : imageView
+                                                                           }]];
+            [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageView]|"
+                                                                         options:(NSLayoutFormatOptions) 0
+                                                                         metrics:nil
+                                                                           views:@{
+                                                                               @"imageView" : imageView
+                                                                           }]];
+            UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:welf action:@selector(didTapOnCloseHandle:)];
+            [view addGestureRecognizer:tgr];
+            return view;
+        }()];
+    }
+    else {
+        [self.swipeMenuView setRightOpenHandleView:nil];
+        [self.swipeMenuView setRightCloseHandleView:nil];
+    }
 }
 
 @end
