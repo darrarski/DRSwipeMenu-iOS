@@ -34,7 +34,14 @@
     CGSize contentSizeBefore = self.contentSize;
     [super layoutSubviews];
 
-    if (CGSizeEqualToSize(contentSizeBefore, CGSizeZero)) {
+    BOOL (^contentSizeWasZero)() = ^BOOL {
+        return CGSizeEqualToSize(contentSizeBefore, CGSizeZero);
+    };
+    BOOL (^contentWidthChanged)() = ^BOOL {
+        return contentSizeBefore.width != self.contentSize.width;
+    };
+
+    if (contentSizeWasZero() || contentWidthChanged()) {
         [self scrollToMainViewAnimated:NO];
     }
 }
