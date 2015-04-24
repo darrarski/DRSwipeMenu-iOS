@@ -238,12 +238,22 @@
 
 - (void)didTapLeftOpenHandle:(id)sender
 {
-    [self.swipeMenuView revealLeftMenuAnimated:YES];
+    if ([self.swipeMenuView isMenuClosed]) {
+        [self.swipeMenuView revealLeftMenuAnimated:YES];
+    }
+    else {
+        [self.swipeMenuView closeMenuAnimated:YES];
+    }
 }
 
 - (void)didTapRightOpenHandle:(id)sender
 {
-    [self.swipeMenuView revealRightMenuAnimated:YES];
+    if ([self.swipeMenuView isMenuClosed]) {
+        [self.swipeMenuView revealRightMenuAnimated:YES];
+    }
+    else {
+        [self.swipeMenuView closeMenuAnimated:YES];
+    }
 }
 
 - (void)didTapOnCloseHandle:(id)sender
