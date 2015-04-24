@@ -36,7 +36,7 @@ static NSString *const CellReuseIdentifier = @"Cell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 4;
+        return 5;
     }
     
     return 0;
@@ -49,6 +49,8 @@ static NSString *const CellReuseIdentifier = @"Cell";
 
         if (indexPath.row == 0) {
             cell.mainView.textLabel.text = @"Cell with swipe menu that contains one button";
+            [cell showLeftOpenCloseHandle:NO];
+            [cell showRightOpenCloseHandle:YES];
             [cell.swipeMenuView setRightMenuItemViews:@[
                 ^UIView *() {
                     UIButton *button = [[UIButton alloc] init];
@@ -62,6 +64,8 @@ static NSString *const CellReuseIdentifier = @"Cell";
         }
         else if (indexPath.row == 1) {
             cell.mainView.textLabel.text = @"Cell with swipe menu that contains several buttons";
+            [cell showLeftOpenCloseHandle:NO];
+            [cell showRightOpenCloseHandle:YES];
             [cell.swipeMenuView setRightMenuItemViews:@[
                 ^UIView *() {
                     UIButton *button = [[UIButton alloc] init];
@@ -91,6 +95,8 @@ static NSString *const CellReuseIdentifier = @"Cell";
         }
         else if (indexPath.row == 2) {
             cell.mainView.textLabel.text = @"Cell with swipe menu that contains many buttons";
+            [cell showLeftOpenCloseHandle:NO];
+            [cell showRightOpenCloseHandle:YES];
             [cell.swipeMenuView setRightMenuItemViews:@[
                 ^UIView *() {
                     UIButton *button = [[UIButton alloc] init];
@@ -144,6 +150,8 @@ static NSString *const CellReuseIdentifier = @"Cell";
         }
         if (indexPath.row == 3) {
             cell.mainView.textLabel.text = @"Cell with swipe menu that contains custom view with text label";
+            [cell showLeftOpenCloseHandle:NO];
+            [cell showRightOpenCloseHandle:YES];
             [cell.swipeMenuView setRightMenuItemViews:@[
                 ^UIView *() {
                     UIView *view = [[UIView alloc] init];
@@ -171,7 +179,175 @@ static NSString *const CellReuseIdentifier = @"Cell";
                 }()
             ]];
         }
+        else if (indexPath.row == 4) {
+            cell.mainView.textLabel.text = @"Cell with left and right swipe menu";
+            [cell showLeftOpenCloseHandle:YES];
+            [cell showRightOpenCloseHandle:YES];
+            [cell.swipeMenuView setLeftMenuItemViews:@[
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon1"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
 
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon2"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon3"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon4"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon5"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon6"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon7"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon8"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon9"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon10"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }()
+            ]];
+            [cell.swipeMenuView setRightMenuItemViews:@[
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon1"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon2"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon3"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon4"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon5"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon6"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon7"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon8"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon9"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon10"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }()
+            ]];
+        }
         return cell;
     }
 
