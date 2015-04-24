@@ -235,7 +235,7 @@
 
     if ([menuScrollView isClosedViewVisibleInRect:targetRect]) {
         if ([menuScrollView isLeftMenuVisibleInRect:targetRect]) {
-            if (self.lastScrolledOffset > 0) {
+            if (self.lastScrolledOffset > 0 && ![menuScrollView isRightMenuVisibleInRect:[menuScrollView visibleRect]]) {
                 openLeftMenu();
             }
             else {
@@ -243,7 +243,7 @@
             }
         }
         else if ([menuScrollView isRightMenuVisibleInRect:targetRect]) {
-            if (self.lastScrolledOffset < 0) {
+            if (self.lastScrolledOffset < 0 && ![menuScrollView isLeftMenuVisibleInRect:[menuScrollView visibleRect]]) {
                 openRightMenu();
             }
             else {
