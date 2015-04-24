@@ -13,10 +13,8 @@
 
 @interface TableViewCell : UITableViewCell
 
-@property (nonatomic, readonly) DRSwipeMenuView *swipeMenuView;
-@property (nonatomic, readonly) TableViewCellMainView *mainView;
-
-- (void)showLeftOpenCloseHandle:(BOOL)show;
-- (void)showRightOpenCloseHandle:(BOOL)show;
+- (void)setCellText:(NSString *)text;
+- (void)setLeftSwipeMenuViews:(NSArray *)views;
+- (void)setRightSwipeMenuViews:(NSArray *)views;
 
 @end

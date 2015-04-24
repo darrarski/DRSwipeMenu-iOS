@@ -19,6 +19,8 @@
 
 @implementation TableViewCell
 
+#pragma mark - Initialization
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -76,47 +78,22 @@
 
 - (void)cleanUp
 {
-    self.mainView.textLabel.text = nil;
+    [self setCellText:nil];
+    [self setLeftSwipeMenuViews:nil];
+    [self setRightSwipeMenuViews:nil];
     [self.swipeMenuView closeMenuAnimated:NO];
 }
 
-- (TableViewCellMainView *)mainView
-{
-    if (!_mainView) {
-        _mainView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TableViewCellMainView class]) owner:self options:nil].firstObject;
-    }
+#pragma mark - Public methods
 
-    return _mainView;
+- (void)setCellText:(NSString *)text
+{
+    self.mainView.textLabel.text = text;
 }
 
-- (DRSwipeMenuView *)swipeMenuView
+- (void)setLeftSwipeMenuViews:(NSArray *)views
 {
-    if (!_swipeMenuView) {
-        _swipeMenuView = [[DRSwipeMenuView alloc] init];
-        _swipeMenuView.translatesAutoresizingMaskIntoConstraints = NO;
-        _swipeMenuView.menuBackgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1];
-    }
-    return _swipeMenuView;
-}
-
-- (void)didTapLeftOpenHandle:(id)sender
-{
-    [self.swipeMenuView revealLeftMenuAnimated:YES];
-}
-
-- (void)didTapRightOpenHandle:(id)sender
-{
-    [self.swipeMenuView revealRightMenuAnimated:YES];
-}
-
-- (void)didTapOnCloseHandle:(id)sender
-{
-    [self.swipeMenuView closeMenuAnimated:YES];
-}
-
-- (void)showLeftOpenCloseHandle:(BOOL)show
-{
-    if (show) {
+    if (views.count > 0) {
         __weak typeof(self) welf = self;
         [self.swipeMenuView setLeftOpenHandleView:^UIView *() {
             UIView *view = [[UIView alloc] init];
@@ -173,11 +150,13 @@
         [self.swipeMenuView setLeftOpenHandleView:nil];
         [self.swipeMenuView setLeftCloseHandleView:nil];
     }
+
+    [self.swipeMenuView setLeftMenuItemViews:views];
 }
 
-- (void)showRightOpenCloseHandle:(BOOL)show
+- (void)setRightSwipeMenuViews:(NSArray *)views
 {
-    if (show) {
+    if (views.count > 0) {
         __weak typeof(self) welf = self;
         [self.swipeMenuView setRightOpenHandleView:^UIView *() {
             UIView *view = [[UIView alloc] init];
@@ -234,6 +213,45 @@
         [self.swipeMenuView setRightOpenHandleView:nil];
         [self.swipeMenuView setRightCloseHandleView:nil];
     }
+
+    [self.swipeMenuView setRightMenuItemViews:views];
+}
+
+#pragma mark - Subviews
+
+- (TableViewCellMainView *)mainView
+{
+    if (!_mainView) {
+        _mainView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TableViewCellMainView class]) owner:self options:nil].firstObject;
+    }
+    return _mainView;
+}
+
+- (DRSwipeMenuView *)swipeMenuView
+{
+    if (!_swipeMenuView) {
+        _swipeMenuView = [[DRSwipeMenuView alloc] init];
+        _swipeMenuView.translatesAutoresizingMaskIntoConstraints = NO;
+        _swipeMenuView.menuBackgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1];
+    }
+    return _swipeMenuView;
+}
+
+#pragma mark - UI actions
+
+- (void)didTapLeftOpenHandle:(id)sender
+{
+    [self.swipeMenuView revealLeftMenuAnimated:YES];
+}
+
+- (void)didTapRightOpenHandle:(id)sender
+{
+    [self.swipeMenuView revealRightMenuAnimated:YES];
+}
+
+- (void)didTapOnCloseHandle:(id)sender
+{
+    [self.swipeMenuView closeMenuAnimated:YES];
 }
 
 @end
