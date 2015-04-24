@@ -118,8 +118,12 @@
         rect.size.width = self.frame.size.width;
     }
 
-    [self scrollRectToVisible:rect
-                     animated:animated];
+    if (animated) {
+        [self scrollRectToVisible:rect animated:YES];
+    }
+    else {
+        self.contentOffset = rect.origin;
+    }
 }
 
 - (void)scrollToRightMenuAnimated:(BOOL)animated
@@ -130,15 +134,28 @@
         .size.width = MIN(self.frame.size.width, self.rightCloseHandleViewContainer.frame.size.width + self.rightMenuItemViewsContainer.frame.size.width),
         .size.height = self.frame.size.height
     };
+    CGFloat offset = rect.size.width - self.frame.size.width;
+    if (offset > 0) {
+        rect.origin.x -= offset;
+        rect.size.width = self.frame.size.width;
+    }
 
-    [self scrollRectToVisible:rect
-                     animated:animated];
+    if (animated) {
+        [self scrollRectToVisible:rect animated:YES];
+    }
+    else {
+        self.contentOffset = rect.origin;
+    }
 }
 
 - (void)scrollToMainViewAnimated:(BOOL)animated
 {
-    [self scrollRectToVisible:self.closedViewsContainer.frame
-                     animated:animated];
+    if (animated) {
+        [self scrollRectToVisible:self.closedViewsContainer.frame animated:YES];
+    }
+    else {
+        self.contentOffset = self.closedViewsContainer.frame.origin;
+    }
 }
 
 #pragma mark - Subviews visibility
