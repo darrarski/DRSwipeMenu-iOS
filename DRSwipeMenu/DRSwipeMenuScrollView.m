@@ -134,6 +134,31 @@
                      animated:animated];
 }
 
+#pragma mark - Subviews visibility
+
+- (BOOL)isClosedViewVisibleInRect:(CGRect)rect
+{
+    return CGRectIntersectsRect(self.closedViewsContainer.frame, rect);
+}
+
+- (BOOL)isLeftMenuVisibleInRect:(CGRect)rect
+{
+    return CGRectGetMinX(rect) < CGRectGetMaxX(self.leftCloseHandleViewContainer.frame);
+}
+
+- (BOOL)isRightMenuVisibleInRect:(CGRect)rect
+{
+    return CGRectGetMaxX(rect) > CGRectGetMinX(self.rightCloseHandleViewContainer.frame);
+}
+
+- (CGRect)visibleRect
+{
+    return (CGRect) {
+        .origin = self.contentOffset,
+        .size = self.frame.size
+    };
+}
+
 #pragma mark - Subviews lazy loading
 
 - (UIView *)closedViewsContainer

@@ -20,4 +20,8 @@
 - (void)scrollToRightMenuAnimated:(BOOL)animated;
 - (void)scrollToMainViewAnimated:(BOOL)animated;
 
+- (BOOL)isClosedViewVisibleInRect:(CGRect)rect;
+- (BOOL)isLeftMenuVisibleInRect:(CGRect)rect;
+- (BOOL)isRightMenuVisibleInRect:(CGRect)rect;
+
 @end
