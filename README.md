@@ -24,6 +24,21 @@ You can also download zip archive of given release from [releases page](https://
 
 Check out included example project. It shows how to use swipe menu on `UITableViewCell`, but menu could be embedded anywhere in the view hierarchy.
 
+## Changelog
+
+##### v2.0.0
+
+> - Source code refactored and cleaned up
+> - Supports left and right swipe menu
+> - Example app updated
+
+##### v1.0.0
+
+> - Initial release
+> - Right swipe menu
+> - iOS 7 and iOS 8 compatible
+
+
 ## License
 
 The MIT License (MIT) - check out included [LICENSE](LICENSE) file
