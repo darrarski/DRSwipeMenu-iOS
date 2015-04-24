@@ -196,6 +196,21 @@
     [self.scrollView scrollToMainViewAnimated:animated];
 }
 
+- (BOOL)isLeftMenuRevealed
+{
+    return [self.scrollView isLeftMenuVisibleInRect:[self.scrollView visibleRect]];
+}
+
+- (BOOL)isRightMenuRevealed
+{
+    return [self.scrollView isRightMenuVisibleInRect:[self.scrollView visibleRect]];
+}
+
+- (BOOL)isMenuClosed
+{
+    return ![self isLeftMenuRevealed] && ![self isRightMenuRevealed];
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

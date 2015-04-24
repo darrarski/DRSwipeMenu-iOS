@@ -19,5 +19,8 @@
 - (void)revealLeftMenuAnimated:(BOOL)animated;
 - (void)revealRightMenuAnimated:(BOOL)animated;
 - (void)closeMenuAnimated:(BOOL)animated;
+- (BOOL)isLeftMenuRevealed;
+- (BOOL)isRightMenuRevealed;
+- (BOOL)isMenuClosed;
 
 @end
