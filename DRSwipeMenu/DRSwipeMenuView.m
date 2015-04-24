@@ -13,6 +13,8 @@
 @interface DRSwipeMenuView () <UIScrollViewDelegate>
 
 @property (nonatomic, weak) DRSwipeMenuScrollView *scrollView;
+@property (nonatomic, assign) CGFloat lastContentOffset;
+@property (nonatomic, assign) CGFloat lastScrolledOffset;
 
 @end
 
@@ -54,6 +56,7 @@
         DRSwipeMenuScrollView *scrollView = [[DRSwipeMenuScrollView alloc] init];
         scrollView.translatesAutoresizingMaskIntoConstraints = NO;
         scrollView.backgroundColor = [UIColor clearColor];
+        [scrollView setDecelerationRate:UIScrollViewDecelerationRateFast];
         scrollView.delegate = self;
         [self addSubview:scrollView];
         _scrollView = scrollView;
@@ -200,35 +203,57 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    // TODO: custom paging implementation
+    self.lastScrolledOffset = self.lastContentOffset - scrollView.contentOffset.x;
+    self.lastContentOffset = scrollView.contentOffset.x;
+}
 
-//    BOOL scrolledToEnd = ^BOOL() {
-//        if (scrollView.contentSize.width <= scrollView.frame.size.width) {
-//            return YES;
-//        }
-//        BOOL scrolledToLeftEnd = scrollView.contentOffset.x <= 0;
-//        BOOL scrolledToRightEnd = scrollView.contentOffset.x == scrollView.contentSize.width - scrollView.frame.size.width;
-//        return scrolledToLeftEnd || scrolledToRightEnd;
-//    }();
-//
-//    BOOL scrolledCenterView = ^BOOL() {
-//        CGRect visibleRect = (CGRect) {
-//            .origin = self.scrollView.contentOffset,
-//            .size = self.scrollView.frame.size
-//        };
-//        return CGRectIntersectsRect(self.scrollView.closedViewsContainer.frame, visibleRect);
-//    }();
-//
-//    if (scrollView.pagingEnabled) {
-//        if (scrolledToEnd || !scrolledCenterView) {
-//            scrollView.pagingEnabled = NO;
-//        }
-//    }
-//    else {
-//        if (!scrolledToEnd && scrolledCenterView) {
-//            scrollView.pagingEnabled = YES;
-//        }
-//    }
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    DRSwipeMenuScrollView *menuScrollView = (DRSwipeMenuScrollView *) scrollView;
+
+    void (^openLeftMenu)() = ^{
+        targetContentOffset->x = MAX(0, CGRectGetMaxX(menuScrollView.leftCloseHandleViewContainer.frame) - CGRectGetWidth(menuScrollView.frame));
+    };
+
+    void (^openRightMenu)() = ^{
+        targetContentOffset->x = CGRectGetMinX(menuScrollView.rightCloseHandleViewContainer.frame);
+        CGFloat rightMenuWidth = CGRectGetWidth(menuScrollView.rightCloseHandleViewContainer.frame) + CGRectGetWidth(menuScrollView.rightMenuItemViewsContainer.frame);
+        CGFloat menuScrollViewWidth = CGRectGetWidth(menuScrollView.frame);
+        if (rightMenuWidth < menuScrollViewWidth) {
+            targetContentOffset->x -= menuScrollViewWidth - rightMenuWidth;
+        }
+    };
+
+    void (^closeMenu)() = ^{
+        targetContentOffset->x = CGRectGetMinX(menuScrollView.closedViewsContainer.frame);
+    };
+
+    CGRect targetRect = (CGRect) {
+        .origin = CGPointMake(targetContentOffset->x, targetContentOffset->y),
+        .size = menuScrollView.frame.size
+    };
+
+    if ([menuScrollView isClosedViewVisibleInRect:targetRect]) {
+        if ([menuScrollView isLeftMenuVisibleInRect:targetRect]) {
+            if (self.lastScrolledOffset > 0) {
+                openLeftMenu();
+            }
+            else {
+                closeMenu();
+            }
+        }
+        else if ([menuScrollView isRightMenuVisibleInRect:targetRect]) {
+            if (self.lastScrolledOffset < 0) {
+                openRightMenu();
+            }
+            else {
+                closeMenu();
+            }
+        }
+        else {
+            closeMenu();
+        }
+    }
 }
 
 @end
