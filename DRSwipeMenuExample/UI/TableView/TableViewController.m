@@ -36,7 +36,7 @@ static NSString *const CellReuseIdentifier = @"Cell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 5;
+        return 7;
     }
     
     return 0;
@@ -180,7 +180,63 @@ static NSString *const CellReuseIdentifier = @"Cell";
             ]];
         }
         else if (indexPath.row == 4) {
-            cell.mainView.textLabel.text = @"Cell with left and right swipe menu";
+            cell.mainView.textLabel.text = @"Cell with left swipe menu";
+            [cell showLeftOpenCloseHandle:YES];
+            [cell showRightOpenCloseHandle:NO];
+            [cell.swipeMenuView setLeftMenuItemViews:@[
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon1"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon2"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }()
+            ]];
+        }
+        else if (indexPath.row == 5) {
+            cell.mainView.textLabel.text = @"Cell with left and right swipe menu (several items)";
+            [cell showLeftOpenCloseHandle:YES];
+            [cell showRightOpenCloseHandle:YES];
+            [cell.swipeMenuView setLeftMenuItemViews:@[
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon1"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }()
+            ]];
+            [cell.swipeMenuView setRightMenuItemViews:@[
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon1"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }(),
+                ^UIView *() {
+                    UIButton *button = [[UIButton alloc] init];
+                    [button setImage:[UIImage imageNamed:[NSString stringWithFormat:@"icon2"]] forState:UIControlStateNormal];
+                    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+                    [button setContentEdgeInsets:UIEdgeInsetsMake(0, 16, 0, 16)];
+
+                    return button;
+                }()
+            ]];
+        }
+        else if (indexPath.row == 6) {
+            cell.mainView.textLabel.text = @"Cell with left and right swipe menu (many items)";
             [cell showLeftOpenCloseHandle:YES];
             [cell showRightOpenCloseHandle:YES];
             [cell.swipeMenuView setLeftMenuItemViews:@[
