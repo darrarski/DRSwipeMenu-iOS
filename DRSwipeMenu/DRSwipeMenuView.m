@@ -77,10 +77,10 @@
 - (void)setMenuBackgroundColor:(UIColor *)menuBackgroundColor
 {
     _menuBackgroundColor = menuBackgroundColor;
-    self.scrollView.leftMenuItemViewsContainer.backgroundColor = menuBackgroundColor;
-    self.scrollView.rightMenuItemViewsContainer.backgroundColor = menuBackgroundColor;
-    self.scrollView.leftCloseHandleViewContainer.backgroundColor = menuBackgroundColor;
-    self.scrollView.rightCloseHandleViewContainer.backgroundColor = menuBackgroundColor;
+    self.scrollView.leftMenuItemViewsContainer.backgroundColor = self.menuBackgroundColor;
+    self.scrollView.rightMenuItemViewsContainer.backgroundColor = self.menuBackgroundColor;
+    self.scrollView.leftCloseHandleViewContainer.backgroundColor = self.menuBackgroundColor;
+    self.scrollView.rightCloseHandleViewContainer.backgroundColor = self.menuBackgroundColor;
 }
 
 - (void)setMainView:(UIView *)view

@@ -151,14 +151,6 @@
     return CGRectGetMaxX(rect) > CGRectGetMinX(self.rightCloseHandleViewContainer.frame);
 }
 
-- (CGRect)visibleRect
-{
-    return (CGRect) {
-        .origin = self.contentOffset,
-        .size = self.frame.size
-    };
-}
-
 #pragma mark - Subviews lazy loading
 
 - (UIView *)closedViewsContainer
