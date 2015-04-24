@@ -23,5 +23,6 @@
 - (BOOL)isClosedViewVisibleInRect:(CGRect)rect;
 - (BOOL)isLeftMenuVisibleInRect:(CGRect)rect;
 - (BOOL)isRightMenuVisibleInRect:(CGRect)rect;
+- (CGRect)visibleRect;
 
 @end
