@@ -19,7 +19,9 @@
 
 @end
 
-@implementation DRSwipeMenuScrollView
+@implementation DRSwipeMenuScrollView {
+    CGSize _lastContentSize;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -31,19 +33,21 @@
 
 - (void)layoutSubviews
 {
-    CGSize contentSizeBefore = self.contentSize;
     [super layoutSubviews];
 
     BOOL (^contentSizeWasZero)() = ^BOOL {
-        return CGSizeEqualToSize(contentSizeBefore, CGSizeZero);
+        return CGSizeEqualToSize(_lastContentSize, CGSizeZero);
     };
     BOOL (^contentWidthChanged)() = ^BOOL {
-        return contentSizeBefore.width != self.contentSize.width;
+        return _lastContentSize.width != self.contentSize.width;
     };
 
     if (contentSizeWasZero() || contentWidthChanged()) {
         [self scrollToMainViewAnimated:NO];
+        [super layoutSubviews];
     }
+
+    _lastContentSize = self.contentSize;
 }
 
 #pragma mark - Initialization
