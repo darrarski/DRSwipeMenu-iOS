@@ -1,7 +1,4 @@
 //
-//  TableViewCell.h
-//  DRSwipeMenuExample
-//
 //  Created by Dariusz Rybicki on 21/03/15.
 //  Copyright (c) 2015 Darrarski. All rights reserved.
 //
@@ -13,7 +10,8 @@
 
 @interface TableViewCell : UITableViewCell
 
-@property (nonatomic, readonly) DRSwipeMenuView *swipeMenuView;
-@property (nonatomic, readonly) TableViewCellMainView *mainView;
+- (void)setCellText:(NSString *)text;
+- (void)setLeftSwipeMenuViews:(NSArray *)views;
+- (void)setRightSwipeMenuViews:(NSArray *)views;
 
 @end

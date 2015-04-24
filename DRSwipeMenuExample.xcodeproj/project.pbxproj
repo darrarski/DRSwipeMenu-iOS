@@ -17,6 +17,8 @@
 		31DA5F361ABD001300370F59 /* DRSwipeMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DA5F351ABD001300370F59 /* DRSwipeMenuView.m */; };
 		31DA5F391ABD16EF00370F59 /* TableViewCellMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DA5F381ABD16EF00370F59 /* TableViewCellMainView.m */; };
 		31DA5F3B1ABD170200370F59 /* TableViewCellMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DA5F3A1ABD170200370F59 /* TableViewCellMainView.xib */; };
+		9DA8A3A6334F1193C6846D2A /* DRSwipeMenuScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8A2FEC779235085D53DEA /* DRSwipeMenuScrollView.m */; };
+		9DA8AFB050864433976CC1F2 /* UIView+DRSwipeMenuAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DA8AA23BDE665E6CC7189B5 /* UIView+DRSwipeMenuAutolayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,10 @@
 		31DA5F371ABD16EF00370F59 /* TableViewCellMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellMainView.h; sourceTree = "<group>"; };
 		31DA5F381ABD16EF00370F59 /* TableViewCellMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellMainView.m; sourceTree = "<group>"; };
 		31DA5F3A1ABD170200370F59 /* TableViewCellMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCellMainView.xib; sourceTree = "<group>"; };
+		9DA8A2FEC779235085D53DEA /* DRSwipeMenuScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRSwipeMenuScrollView.m; sourceTree = "<group>"; };
+		9DA8A3CE3F4BD1C9E742CE52 /* UIView+DRSwipeMenuAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DRSwipeMenuAutolayout.h"; sourceTree = "<group>"; };
+		9DA8A98FBBBF4CED45A74133 /* DRSwipeMenuScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRSwipeMenuScrollView.h; sourceTree = "<group>"; };
+		9DA8AA23BDE665E6CC7189B5 /* UIView+DRSwipeMenuAutolayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DRSwipeMenuAutolayout.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,8 +123,12 @@
 		31DA5F2A1ABCF95100370F59 /* DRSwipeMenu */ = {
 			isa = PBXGroup;
 			children = (
+				9DA8A98FBBBF4CED45A74133 /* DRSwipeMenuScrollView.h */,
+				9DA8A2FEC779235085D53DEA /* DRSwipeMenuScrollView.m */,
 				31DA5F341ABD001300370F59 /* DRSwipeMenuView.h */,
 				31DA5F351ABD001300370F59 /* DRSwipeMenuView.m */,
+				9DA8A3CE3F4BD1C9E742CE52 /* UIView+DRSwipeMenuAutolayout.h */,
+				9DA8AA23BDE665E6CC7189B5 /* UIView+DRSwipeMenuAutolayout.m */,
 			);
 			path = DRSwipeMenu;
 			sourceTree = "<group>";
@@ -214,6 +224,8 @@
 				31DA5F391ABD16EF00370F59 /* TableViewCellMainView.m in Sources */,
 				31DA5F041ABCF70000370F59 /* main.m in Sources */,
 				31DA5F2D1ABCFA8200370F59 /* TableViewController.m in Sources */,
+				9DA8A3A6334F1193C6846D2A /* DRSwipeMenuScrollView.m in Sources */,
+				9DA8AFB050864433976CC1F2 /* UIView+DRSwipeMenuAutolayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

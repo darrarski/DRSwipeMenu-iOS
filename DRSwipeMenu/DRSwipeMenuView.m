@@ -1,21 +1,17 @@
 //
-//  DRSwipeMenuView.m
-//  DRSwipeMenu
-//
 //  Created by Dariusz Rybicki on 21/03/15.
 //  Copyright (c) 2015 Darrarski. All rights reserved.
 //
 
 #import "DRSwipeMenuView.h"
+#import "DRSwipeMenuScrollView.h"
+#import "UIView+DRSwipeMenuAutolayout.h"
 
 @interface DRSwipeMenuView () <UIScrollViewDelegate>
 
-@property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) UIView *closedViewsContainer;
-@property (nonatomic, strong) UIView *mainViewContainer;
-@property (nonatomic, strong) UIView *openHandleViewContainer;
-@property (nonatomic, strong) UIView *closeHandleViewContainer;
-@property (nonatomic, strong) UIView *menuItemViewsContainer;
+@property (nonatomic, weak) DRSwipeMenuScrollView *scrollView;
+@property (nonatomic, assign) CGFloat lastContentOffset;
+@property (nonatomic, assign) CGFloat lastScrolledOffset;
 
 @end
 
@@ -31,7 +27,6 @@
     if (self) {
         [self commonInit];
     }
-
     return self;
 }
 
@@ -41,8 +36,29 @@
     if (self) {
         [self commonInit];
     }
-
     return self;
+}
+
+- (void)commonInit
+{
+    self.backgroundColor = [UIColor clearColor];
+    [self.scrollView autolayoutFillSuperview];
+}
+
+#pragma mark - Subviews
+
+- (DRSwipeMenuScrollView *)scrollView
+{
+    if (!_scrollView) {
+        DRSwipeMenuScrollView *scrollView = [[DRSwipeMenuScrollView alloc] init];
+        scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+        scrollView.backgroundColor = [UIColor clearColor];
+        [scrollView setDecelerationRate:UIScrollViewDecelerationRateFast];
+        scrollView.delegate = self;
+        [self addSubview:scrollView];
+        _scrollView = scrollView;
+    }
+    return _scrollView;
 }
 
 #pragma mark - Public methods
@@ -52,362 +68,202 @@
     if (!_menuBackgroundColor) {
         _menuBackgroundColor = [UIColor clearColor];
     }
-
     return _menuBackgroundColor;
 }
 
 - (void)setMenuBackgroundColor:(UIColor *)menuBackgroundColor
 {
     _menuBackgroundColor = menuBackgroundColor;
-
-    self.menuItemViewsContainer.backgroundColor = menuBackgroundColor;
-    self.closeHandleViewContainer.backgroundColor = menuBackgroundColor;
+    self.scrollView.leftMenuItemViewsContainer.backgroundColor = self.menuBackgroundColor;
+    self.scrollView.rightMenuItemViewsContainer.backgroundColor = self.menuBackgroundColor;
+    self.scrollView.leftCloseHandleViewContainer.backgroundColor = self.menuBackgroundColor;
+    self.scrollView.rightCloseHandleViewContainer.backgroundColor = self.menuBackgroundColor;
 }
 
 - (void)setMainView:(UIView *)view
 {
-    for (UIView *subview in self.mainViewContainer.subviews) {
+    for (UIView *subview in self.scrollView.mainViewContainer.subviews) {
         [subview removeFromSuperview];
     }
-
-    if (!view) {
-        return;
-    }
-
+    if (!view) return;
     view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.mainViewContainer addSubview:view];
-    [self.mainViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
-                                                                                   options:(NSLayoutFormatOptions) 0
-                                                                                   metrics:nil
-                                                                                     views:@{
-                                                                                         @"view": view
-                                                                                     }]];
-    [self.mainViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
-                                                                                   options:(NSLayoutFormatOptions) 0
-                                                                                   metrics:nil
-                                                                                     views:@{
-                                                                                         @"view": view
-                                                                                     }]];
+    [self.scrollView.mainViewContainer addSubview:view];
+    [view autolayoutFillSuperview];
 }
 
-- (void)setMenuItemViews:(NSArray *)views
+- (void)setLeftMenuItemViews:(NSArray *)views
 {
-    for (UIView *subview in self.menuItemViewsContainer.subviews) {
+    for (UIView *subview in self.scrollView.leftMenuItemViewsContainer.subviews) {
         [subview removeFromSuperview];
     }
-
     for (UIView *view in views) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.menuItemViewsContainer addSubview:view];
+        [self.scrollView.leftMenuItemViewsContainer addSubview:view];
     }
-
     for (UIView *view in views) {
-        [self.menuItemViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
-                                                                                            options:(NSLayoutFormatOptions) 0
-                                                                                            metrics:nil
-                                                                                              views:@{
-                                                                                                  @"view": view
-                                                                                              }]];
-
+        [view autolayoutFillSuperviewVertically];
         if ([view isEqual:views.firstObject]) {
-            [self.menuItemViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]"
-                                                                                                options:(NSLayoutFormatOptions) 0
-                                                                                                metrics:nil
-                                                                                                  views:@{
-                                                                                                      @"view": view
-                                                                                                  }]];
+            [view autolayoutPinLeftEdgeToSuperview];
         }
-
         if ([view isEqual:views.lastObject]) {
-            [self.menuItemViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view]|"
-                                                                                                options:(NSLayoutFormatOptions) 0
-                                                                                                metrics:nil
-                                                                                                  views:@{
-                                                                                                      @"view": view
-                                                                                                  }]];
+            [view autolayoutPinRightEdgeToSuperview];
         }
         else {
-            [self.menuItemViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view][nextView]"
-                                                                                                options:(NSLayoutFormatOptions) 0
-                                                                                                metrics:nil
-                                                                                                  views:@{
-                                                                                                      @"view": view,
-                                                                                                      @"nextView": views[[views indexOfObject:view] + 1]
-                                                                                                  }]];
+            [view autolayoutPinRightEdgeToView:views[[views indexOfObject:view] + 1]];
         }
     }
 }
 
-- (void)setOpenHandleView:(UIView *)view
+- (void)setRightMenuItemViews:(NSArray *)views
 {
-    for (UIView *subview in self.openHandleViewContainer.subviews) {
+    for (UIView *subview in self.scrollView.rightMenuItemViewsContainer.subviews) {
         [subview removeFromSuperview];
     }
-
-    if (!view) {
-        return;
+    for (UIView *view in views) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.scrollView.rightMenuItemViewsContainer addSubview:view];
     }
-
-    view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.openHandleViewContainer addSubview:view];
-    [self.openHandleViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
-                                                                                         options:(NSLayoutFormatOptions) 0
-                                                                                         metrics:nil
-                                                                                           views:@{
-                                                                                               @"view": view
-                                                                                           }]];
-    [self.openHandleViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
-                                                                                         options:(NSLayoutFormatOptions) 0
-                                                                                         metrics:nil
-                                                                                           views:@{
-                                                                                               @"view": view
-                                                                                           }]];
+    for (UIView *view in views) {
+        [view autolayoutFillSuperviewVertically];
+        if ([view isEqual:views.firstObject]) {
+            [view autolayoutPinLeftEdgeToSuperview];
+        }
+        if ([view isEqual:views.lastObject]) {
+            [view autolayoutPinRightEdgeToSuperview];
+        }
+        else {
+            [view autolayoutPinRightEdgeToView:views[[views indexOfObject:view] + 1]];
+        }
+    }
 }
 
-- (void)setCloseHandleView:(UIView *)view
+- (void)setLeftOpenHandleView:(UIView *)view
 {
-    for (UIView *subview in self.closeHandleViewContainer.subviews) {
+    for (UIView *subview in self.scrollView.leftOpenHandleViewContainer.subviews) {
         [subview removeFromSuperview];
     }
-
-    if (!view) {
-        return;
-    }
-
+    if (!view) return;
     view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.closeHandleViewContainer addSubview:view];
-    [self.closeHandleViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
-                                                                                          options:(NSLayoutFormatOptions) 0
-                                                                                          metrics:nil
-                                                                                            views:@{
-                                                                                                @"view": view
-                                                                                            }]];
-    [self.closeHandleViewContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
-                                                                                          options:(NSLayoutFormatOptions) 0
-                                                                                          metrics:nil
-                                                                                            views:@{
-                                                                                                @"view": view
-                                                                                            }]];
+    [self.scrollView.leftOpenHandleViewContainer addSubview:view];
+    [view autolayoutFillSuperview];
 }
 
-- (void)revealMenuAnimated:(BOOL)animated
+- (void)setRightOpenHandleView:(UIView *)view
 {
-    CGRect rect = (CGRect) {
-        .origin.x = self.closeHandleViewContainer.frame.origin.x,
-        .origin.y = 0,
-        .size.width = MIN(self.scrollView.frame.size.width, self.closeHandleViewContainer.frame.size.width + self.menuItemViewsContainer.frame.size.width),
-        .size.height = self.scrollView.frame.size.height
-    };
+    for (UIView *subview in self.scrollView.rightOpenHandleViewContainer.subviews) {
+        [subview removeFromSuperview];
+    }
+    if (!view) return;
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.scrollView.rightOpenHandleViewContainer addSubview:view];
+    [view autolayoutFillSuperview];
+}
 
-    [self.scrollView scrollRectToVisible:rect
-                                animated:animated];
+- (void)setLeftCloseHandleView:(UIView *)view
+{
+    for (UIView *subview in self.scrollView.leftCloseHandleViewContainer.subviews) {
+        [subview removeFromSuperview];
+    }
+    if (!view) return;
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.scrollView.leftCloseHandleViewContainer addSubview:view];
+    [view autolayoutFillSuperview];
+}
+
+- (void)setRightCloseHandleView:(UIView *)view
+{
+    for (UIView *subview in self.scrollView.rightCloseHandleViewContainer.subviews) {
+        [subview removeFromSuperview];
+    }
+    if (!view) return;
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.scrollView.rightCloseHandleViewContainer addSubview:view];
+    [view autolayoutFillSuperview];
+}
+
+- (void)revealLeftMenuAnimated:(BOOL)animated
+{
+    [self.scrollView scrollToLeftMenuAnimated:animated];
+}
+
+- (void)revealRightMenuAnimated:(BOOL)animated
+{
+    [self.scrollView scrollToRightMenuAnimated:animated];
 }
 
 - (void)closeMenuAnimated:(BOOL)animated
 {
-    CGRect rect = (CGRect) {
-        .origin.x = 0,
-        .origin.y = 0,
-        .size.width = self.scrollView.frame.size.width,
-        .size.height = self.scrollView.frame.size.height
-    };
-
-    [self.scrollView scrollRectToVisible:rect
-                                animated:animated];
+    [self.scrollView scrollToMainViewAnimated:animated];
 }
 
-#pragma mark - Internals
-
-- (void)commonInit
+- (BOOL)isLeftMenuRevealed
 {
-    self.backgroundColor = [UIColor clearColor];
-
-    self.scrollView.showsVerticalScrollIndicator = NO;
-    self.scrollView.showsHorizontalScrollIndicator = NO;
-    self.scrollView.bounces = NO;
-    self.scrollView.pagingEnabled = YES;
-
-    [self setupSubviews];
+    return [self.scrollView isLeftMenuVisibleInRect:[self.scrollView visibleRect]];
 }
 
-- (void)setupSubviews
+- (BOOL)isRightMenuRevealed
 {
-    [self addSubview:self.scrollView];
-    [self.scrollView addSubview:self.closedViewsContainer];
-    [self.closedViewsContainer addSubview:self.mainViewContainer];
-    [self.closedViewsContainer addSubview:self.openHandleViewContainer];
-    [self.scrollView addSubview:self.closeHandleViewContainer];
-    [self.scrollView addSubview:self.menuItemViewsContainer];
-
-    [self setupScrollViewConstraints];
-    [self setupScrollViewSubviewsConstraints];
-    [self setupClosedViewsContainerSubviewsConstraints];
+    return [self.scrollView isRightMenuVisibleInRect:[self.scrollView visibleRect]];
 }
 
-- (void)setupScrollViewConstraints
+- (BOOL)isMenuClosed
 {
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[scrollView]|"
-                                                                 options:(NSLayoutFormatOptions) 0
-                                                                 metrics:nil
-                                                                   views:@{
-                                                                       @"scrollView": self.scrollView
-                                                                   }]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scrollView]|"
-                                                                 options:(NSLayoutFormatOptions) 0
-                                                                 metrics:nil
-                                                                   views:@{
-                                                                       @"scrollView": self.scrollView
-                                                                   }]];
-}
-
-- (void)setupScrollViewSubviewsConstraints
-{
-    [self.scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[closedView(==scrollView)][closeHandle][menu]|"
-                                                                            options:(NSLayoutFormatOptions) 0
-                                                                            metrics:nil
-                                                                              views:@{
-                                                                                  @"closedView": self.closedViewsContainer,
-                                                                                  @"scrollView": self.scrollView,
-                                                                                  @"closeHandle": self.closeHandleViewContainer,
-                                                                                  @"menu": self.menuItemViewsContainer
-                                                                              }]];
-
-    for (UIView *subview in self.scrollView.subviews) {
-        [self.scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[subview(==container)]|"
-                                                                                options:(NSLayoutFormatOptions) 0
-                                                                                metrics:nil
-                                                                                  views:@{
-                                                                                      @"subview": subview,
-                                                                                      @"container": self.scrollView
-                                                                                  }]];
-    }
-}
-
-- (void)setupClosedViewsContainerSubviewsConstraints
-{
-    [self.closedViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[main][openHandle]|"
-                                                                                      options:(NSLayoutFormatOptions) 0
-                                                                                      metrics:nil
-                                                                                        views:@{
-                                                                                            @"main": self.mainViewContainer,
-                                                                                            @"openHandle": self.openHandleViewContainer
-                                                                                        }]];
-
-    for (UIView *subview in self.closedViewsContainer.subviews) {
-        [self.closedViewsContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[subview]|"
-                                                                                          options:(NSLayoutFormatOptions) 0
-                                                                                          metrics:nil
-                                                                                            views:@{
-                                                                                                @"subview": subview
-                                                                                            }]];
-    }
-
-    NSLayoutConstraint *openHandleMinWidth = [NSLayoutConstraint constraintWithItem:self.openHandleViewContainer
-                                                                          attribute:NSLayoutAttributeWidth
-                                                                          relatedBy:NSLayoutRelationEqual
-                                                                             toItem:nil
-                                                                          attribute:NSLayoutAttributeNotAnAttribute
-                                                                         multiplier:1
-                                                                           constant:0];
-    openHandleMinWidth.priority = 251;
-    [self.openHandleViewContainer addConstraint:openHandleMinWidth];
-}
-
-#pragma mark - Subviews
-
-- (UIScrollView *)scrollView
-{
-    if (!_scrollView) {
-        _scrollView = [[UIScrollView alloc] init];
-        _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-        _scrollView.backgroundColor = [UIColor clearColor];
-        _scrollView.delegate = self;
-    }
-
-    return _scrollView;
-}
-
-- (UIView *)closedViewsContainer
-{
-    if (!_closedViewsContainer) {
-        _closedViewsContainer = [[UIView alloc] init];
-        _closedViewsContainer.translatesAutoresizingMaskIntoConstraints = NO;
-        _closedViewsContainer.backgroundColor = [UIColor clearColor];
-    }
-
-    return _closedViewsContainer;
-}
-
-- (UIView *)mainViewContainer
-{
-    if (!_mainViewContainer) {
-        _mainViewContainer = [[UIView alloc] init];
-        _mainViewContainer.translatesAutoresizingMaskIntoConstraints = NO;
-        _mainViewContainer.backgroundColor = [UIColor clearColor];
-    }
-
-    return _mainViewContainer;
-}
-
-- (UIView *)openHandleViewContainer
-{
-    if (!_openHandleViewContainer) {
-        _openHandleViewContainer = [[UIView alloc] init];
-        _openHandleViewContainer.translatesAutoresizingMaskIntoConstraints = NO;
-        _openHandleViewContainer.backgroundColor = [UIColor clearColor];
-    }
-
-    return _openHandleViewContainer;
-}
-
-- (UIView *)closeHandleViewContainer
-{
-    if (!_closeHandleViewContainer) {
-        _closeHandleViewContainer = [[UIView alloc] init];
-        _closeHandleViewContainer.translatesAutoresizingMaskIntoConstraints = NO;
-        _closeHandleViewContainer.backgroundColor = self.menuBackgroundColor;
-    }
-
-    return _closeHandleViewContainer;
-}
-
-- (UIView *)menuItemViewsContainer
-{
-    if (!_menuItemViewsContainer) {
-        _menuItemViewsContainer = [[UIView alloc] init];
-        _menuItemViewsContainer.translatesAutoresizingMaskIntoConstraints = NO;
-        _menuItemViewsContainer.backgroundColor = self.menuBackgroundColor;
-    }
-
-    return _menuItemViewsContainer;
+    return ![self isLeftMenuRevealed] && ![self isRightMenuRevealed];
 }
 
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    BOOL scrolledToEnd = ^BOOL() {
-        if (scrollView.contentSize.width <= scrollView.frame.size.width) {
-            return YES;
-        }
-        return scrollView.contentOffset.x == scrollView.contentSize.width - scrollView.frame.size.width;
-    }();
+    self.lastScrolledOffset = self.lastContentOffset - scrollView.contentOffset.x;
+    self.lastContentOffset = scrollView.contentOffset.x;
+}
 
-    BOOL scrolledMenu = ^BOOL() {
-        if (scrollView.contentSize.width <= scrollView.frame.size.width) {
-            return NO;
-        }
-        return scrollView.contentOffset.x > scrollView.frame.size.width;
-    }();
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    DRSwipeMenuScrollView *menuScrollView = (DRSwipeMenuScrollView *) scrollView;
 
-    if (scrollView.pagingEnabled) {
-        if (scrolledToEnd || scrolledMenu) {
-            scrollView.pagingEnabled = NO;
+    void (^openLeftMenu)() = ^{
+        targetContentOffset->x = MAX(0, CGRectGetMaxX(menuScrollView.leftCloseHandleViewContainer.frame) - CGRectGetWidth(menuScrollView.frame));
+    };
+
+    void (^openRightMenu)() = ^{
+        targetContentOffset->x = CGRectGetMinX(menuScrollView.rightCloseHandleViewContainer.frame);
+        CGFloat rightMenuWidth = CGRectGetWidth(menuScrollView.rightCloseHandleViewContainer.frame) + CGRectGetWidth(menuScrollView.rightMenuItemViewsContainer.frame);
+        CGFloat menuScrollViewWidth = CGRectGetWidth(menuScrollView.frame);
+        if (rightMenuWidth < menuScrollViewWidth) {
+            targetContentOffset->x -= menuScrollViewWidth - rightMenuWidth;
         }
-    }
-    else {
-        if (!scrolledToEnd && !scrolledMenu) {
-            scrollView.pagingEnabled = YES;
+    };
+
+    void (^closeMenu)() = ^{
+        targetContentOffset->x = CGRectGetMinX(menuScrollView.closedViewsContainer.frame);
+    };
+
+    CGRect targetRect = (CGRect) {
+        .origin = CGPointMake(targetContentOffset->x, targetContentOffset->y),
+        .size = menuScrollView.frame.size
+    };
+
+    if ([menuScrollView isClosedViewVisibleInRect:targetRect]) {
+        if ([menuScrollView isLeftMenuVisibleInRect:targetRect]) {
+            if (self.lastScrolledOffset > 0 && ![menuScrollView isRightMenuVisibleInRect:[menuScrollView visibleRect]]) {
+                openLeftMenu();
+            }
+            else {
+                closeMenu();
+            }
+        }
+        else if ([menuScrollView isRightMenuVisibleInRect:targetRect]) {
+            if (self.lastScrolledOffset < 0 && ![menuScrollView isLeftMenuVisibleInRect:[menuScrollView visibleRect]]) {
+                openRightMenu();
+            }
+            else {
+                closeMenu();
+            }
+        }
+        else {
+            closeMenu();
         }
     }
 }
