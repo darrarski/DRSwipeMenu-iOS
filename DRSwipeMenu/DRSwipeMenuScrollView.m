@@ -22,6 +22,8 @@
 
 @implementation DRSwipeMenuScrollView {
     CGSize _lastContentSize;
+    CGPoint _lastContentOffset;
+    CGPoint _lastClosedViewsContainerOrigin;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -36,19 +38,29 @@
 {
     [super layoutSubviews];
 
-    BOOL (^contentSizeWasZero)() = ^BOOL {
-        return CGSizeEqualToSize(_lastContentSize, CGSizeZero);
-    };
-    BOOL (^contentWidthChanged)() = ^BOOL {
-        return _lastContentSize.width != self.contentSize.width;
-    };
-
-    if (contentSizeWasZero() || contentWidthChanged()) {
-        [self scrollToMainViewAnimated:NO];
+    if (CGSizeEqualToSize(_lastContentSize, CGSizeZero)) {
+        self.contentOffset = self.closedViewsContainer.frame.origin;
+        [super layoutSubviews];
+    }
+    else if (_lastContentSize.width != self.contentSize.width) {
+        if (CGPointEqualToPoint(_lastContentOffset, _lastClosedViewsContainerOrigin)) {
+            self.contentOffset = self.closedViewsContainer.frame.origin;
+        }
+        else {
+            CGPoint contentOffset = self.contentOffset;
+            contentOffset.x = _lastContentOffset.x;
+            if (!CGPointEqualToPoint(_lastClosedViewsContainerOrigin, self.closedViewsContainer.frame.origin)) {
+                contentOffset.x += self.closedViewsContainer.frame.origin.x - _lastClosedViewsContainerOrigin.x;
+            }
+            contentOffset.x = MAX(0, MIN(self.contentSize.width - self.frame.size.width, contentOffset.x));
+            self.contentOffset = contentOffset;
+        }
         [super layoutSubviews];
     }
 
     _lastContentSize = self.contentSize;
+    _lastContentOffset = self.contentOffset;
+    _lastClosedViewsContainerOrigin = self.closedViewsContainer.frame.origin;
 }
 
 #pragma mark - Initialization
