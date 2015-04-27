@@ -112,6 +112,7 @@
             [view autolayoutPinRightEdgeToView:views[[views indexOfObject:view] + 1]];
         }
     }
+    [self.scrollView layoutSubviews];
 }
 
 - (void)setRightMenuItemViews:(NSArray *)views
@@ -135,6 +136,7 @@
             [view autolayoutPinRightEdgeToView:views[[views indexOfObject:view] + 1]];
         }
     }
+    [self.scrollView layoutSubviews];
 }
 
 - (void)setLeftOpenHandleView:(UIView *)view
@@ -164,10 +166,12 @@
     for (UIView *subview in self.scrollView.leftCloseHandleViewContainer.subviews) {
         [subview removeFromSuperview];
     }
-    if (!view) return;
-    view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.scrollView.leftCloseHandleViewContainer addSubview:view];
-    [view autolayoutFillSuperview];
+    if (view) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.scrollView.leftCloseHandleViewContainer addSubview:view];
+        [view autolayoutFillSuperview];
+    }
+    [self.scrollView layoutSubviews];
 }
 
 - (void)setRightCloseHandleView:(UIView *)view
@@ -175,10 +179,12 @@
     for (UIView *subview in self.scrollView.rightCloseHandleViewContainer.subviews) {
         [subview removeFromSuperview];
     }
-    if (!view) return;
-    view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.scrollView.rightCloseHandleViewContainer addSubview:view];
-    [view autolayoutFillSuperview];
+    if (view) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.scrollView.rightCloseHandleViewContainer addSubview:view];
+        [view autolayoutFillSuperview];
+    }
+    [self.scrollView layoutSubviews];
 }
 
 - (void)revealLeftMenuAnimated:(BOOL)animated
