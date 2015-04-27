@@ -8,6 +8,7 @@
 @interface DRSwipeMenuView : UIView
 
 @property (nonatomic, strong) UIColor *menuBackgroundColor;
+@property (nonatomic, assign) BOOL shouldCloseByTapingOnMainView;
 
 - (void)setMainView:(UIView *)view;
 - (void)setLeftMenuItemViews:(NSArray *)views;

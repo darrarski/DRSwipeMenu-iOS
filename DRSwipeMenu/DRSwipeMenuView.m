@@ -217,6 +217,7 @@
 {
     self.lastScrolledOffset = self.lastContentOffset - scrollView.contentOffset.x;
     self.lastContentOffset = scrollView.contentOffset.x;
+    [self.scrollView setCloseByTappingMainViewEnabled:self.shouldCloseByTapingOnMainView && ![self isMenuClosed]];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
