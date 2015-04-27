@@ -109,4 +109,38 @@
                                                                    }]];
 }
 
+- (void)autolayoutSubview:(UIView *)subview setSamePositionAndSizeAsView:(UIView *)view
+{
+    [self addConstraints:@[
+        [NSLayoutConstraint constraintWithItem:subview
+                                     attribute:NSLayoutAttributeCenterX
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:view
+                                     attribute:NSLayoutAttributeCenterX
+                                    multiplier:1
+                                      constant:0],
+        [NSLayoutConstraint constraintWithItem:subview
+                                     attribute:NSLayoutAttributeCenterY
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:view
+                                     attribute:NSLayoutAttributeCenterY
+                                    multiplier:1
+                                      constant:0],
+        [NSLayoutConstraint constraintWithItem:subview
+                                     attribute:NSLayoutAttributeWidth
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:view
+                                     attribute:NSLayoutAttributeWidth
+                                    multiplier:1
+                                      constant:0],
+        [NSLayoutConstraint constraintWithItem:subview
+                                     attribute:NSLayoutAttributeHeight
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:view
+                                     attribute:NSLayoutAttributeHeight
+                                    multiplier:1
+                                      constant:0]
+    ]];
+}
+
 @end

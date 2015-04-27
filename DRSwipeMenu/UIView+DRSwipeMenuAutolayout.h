@@ -17,5 +17,6 @@
 - (void)autolayoutSetWidth:(CGFloat)width priority:(UILayoutPriority)priority;
 - (void)autolayoutSubview:(UIView *)subview setSameWidthAsView:(UIView *)view;
 - (void)autolayoutSubview:(UIView *)subview setSameHeightAsView:(UIView *)view;
+- (void)autolayoutSubview:(UIView *)subview setSamePositionAndSizeAsView:(UIView *)view;
 
 @end
