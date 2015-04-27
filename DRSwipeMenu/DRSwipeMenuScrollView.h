@@ -25,4 +25,6 @@
 - (BOOL)isRightMenuVisibleInRect:(CGRect)rect;
 - (CGRect)visibleRect;
 
+- (void)setCloseByTappingMainViewEnabled:(BOOL)enabled;
+
 @end

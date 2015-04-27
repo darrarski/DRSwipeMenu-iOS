@@ -16,6 +16,7 @@
 @property (nonatomic, weak) UIView *rightCloseHandleViewContainer;
 @property (nonatomic, weak) UIView *leftMenuItemViewsContainer;
 @property (nonatomic, weak) UIView *rightMenuItemViewsContainer;
+@property (nonatomic, weak) UIView *mainViewCover;
 
 @end
 
@@ -90,6 +91,8 @@
         [subview autolayoutFillSuperviewVertically];
         [self autolayoutSubview:subview setSameHeightAsView:self];
     }
+    [self.mainViewCover.superview autolayoutSubview:self.mainViewCover
+                       setSamePositionAndSizeAsView:self.mainViewContainer];
 }
 
 - (void)setupClosedViewsContainerSubviewsConstraints
@@ -253,6 +256,17 @@
     return _rightMenuItemViewsContainer;
 }
 
+- (UIView *)mainViewCover
+{
+    if (!_mainViewCover) {
+        _mainViewCover = [self createAndAddSubview];
+        _mainViewCover.userInteractionEnabled = NO;
+        UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mainViewCoverTapAction:)];
+        [_mainViewCover addGestureRecognizer:tgr];
+    }
+    return _mainViewCover;
+}
+
 - (UIView *)createAndAddSubview
 {
     UIView *view = [[UIView alloc] init];
@@ -260,6 +274,18 @@
     view.backgroundColor = [UIColor clearColor];
     [self addSubview:view];
     return view;
+}
+
+#pragma mark -
+
+- (void)setCloseByTappingMainViewEnabled:(BOOL)enabled
+{
+    self.mainViewCover.userInteractionEnabled = enabled;
+}
+
+- (void)mainViewCoverTapAction:(id)sender
+{
+    [self scrollToMainViewAnimated:YES];
 }
 
 @end
