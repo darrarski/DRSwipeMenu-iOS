@@ -26,6 +26,10 @@ Check out included example project. It shows how to use swipe menu on `UITableVi
 
 ## Changelog
 
+##### v2.0.1
+
+> - Added `shouldCloseByTapingOnMainView` property to `DRSwipeMenuView`. If set to `YES`, tapping on center view closes menu. This will block user interactions with center view while menu is revealed.
+
 ##### v2.0.0
 
 > - Source code refactored and cleaned up
