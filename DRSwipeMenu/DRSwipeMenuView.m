@@ -273,7 +273,7 @@
 {
     if (self.shouldDisableScrollingWhileDecelerating) {
         scrollView.scrollEnabled = NO;
-    }
+    }    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
