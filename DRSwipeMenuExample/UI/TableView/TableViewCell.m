@@ -50,6 +50,7 @@
 
 - (void)commonInit
 {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView addSubview:self.swipeMenuView];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[swipeMenu]|"
                                                                              options:(NSLayoutFormatOptions) 0
