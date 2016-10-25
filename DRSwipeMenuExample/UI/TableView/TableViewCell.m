@@ -232,6 +232,7 @@
         _swipeMenuView.translatesAutoresizingMaskIntoConstraints = NO;
         _swipeMenuView.menuBackgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1];
         _swipeMenuView.shouldCloseByTapingOnMainView = YES;
+        _swipeMenuView.shouldDisableScrollingWhileDecelerating = YES;
     }
     return _swipeMenuView;
 }
