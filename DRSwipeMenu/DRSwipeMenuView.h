@@ -9,6 +9,7 @@
 
 @property (nonatomic, strong) UIColor *menuBackgroundColor;
 @property (nonatomic, assign) BOOL shouldCloseByTapingOnMainView;
+@property (nonatomic, assign) BOOL shouldDisableScrollingWhileDecelerating;
 
 - (void)setMainView:(UIView *)view;
 - (void)setLeftMenuItemViews:(NSArray *)views;

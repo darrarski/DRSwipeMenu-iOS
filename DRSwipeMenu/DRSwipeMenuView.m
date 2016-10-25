@@ -269,4 +269,16 @@
     }
 }
 
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    if (self.shouldDisableScrollingWhileDecelerating) {
+        scrollView.scrollEnabled = NO;
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    scrollView.scrollEnabled = YES;
+}
+
 @end
