@@ -10,15 +10,15 @@ You can integrate `DRSwipeMenu` with your project using Cocoapods. To do so, you
 
 For stable release (recommended):
 
-    pod 'DRSwipeMenu', '~> 2.0.1'
+    pod 'DRSwipeMenu', '~> 2.0'
 
-Which creates dependency for version `>= 2.0.1` and `< 2.1`
+Which creates dependency for version `>= 2.0.0` and `< 3.0.0`
 
 For most recent or exact development version (not recommended on production):
 
     pod 'DRSwipeMenu', :git => 'https://github.com/darrarski/DRSwipeMenu-iOS.git', :tag => 'VERSION_TAG'
 
-Where `VERSION_TAG` you should put tag name for given version (ex. "v2.0.1"). It is recommended to set version explicity instead of using most recent version, as backward compatibility is not warranted.
+Where `VERSION_TAG` you should put tag name for given version (ex. "v2.0.2"). It is recommended to set version explicity instead of using most recent version, as backward compatibility is not warranted.
 
 You can also download zip archive of given release from [releases page](https://github.com/darrarski/DRSwipeMenu-iOS/releases).
 
@@ -27,6 +27,12 @@ You can also download zip archive of given release from [releases page](https://
 Check out included example project. It shows how to use swipe menu on `UITableViewCell`, but menu could be embedded anywhere in the view hierarchy.
 
 ## Changelog
+
+##### v2.0.2
+
+> - Added `shouldDisableScrollingWhileDecelerating` property to `DRSwipeMenuView`. If set to `YES`, scrolling will be disabled during deceleration. This could improve UX when embedding swipe menu in other scroll views (eg when adding swipe menu to cells in table view). Default value is `NO`.
+> - Example app updated using Xcode 8
+> - Minimum deployment target bumped to iOS 8
 
 ##### v2.0.1
 
