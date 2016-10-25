@@ -28,11 +28,16 @@ Check out included example project. It shows how to use swipe menu on `UITableVi
 
 ## Changelog
 
+##### v2.0.3
+
+> - Added `scrollDeceleationRate` property to `DRSwipeMenuView`
+
 ##### v2.0.2
 
 > - Added `shouldDisableScrollingWhileDecelerating` property to `DRSwipeMenuView`. If set to `YES`, scrolling will be disabled during deceleration. This could improve UX when embedding swipe menu in other scroll views (eg when adding swipe menu to cells in table view). Default value is `NO`.
 > - Example app updated using Xcode 8
 > - Minimum deployment target bumped to iOS 8
+> - Added documentation comments to all public headers
 
 ##### v2.0.1
 
