@@ -98,7 +98,9 @@ static NSString *const CellReuseIdentifier = @"Cell";
         return cell;
     }
 
-    return nil;
+    @throw [NSException exceptionWithName:@"Fatal error"
+                                   reason:@"Invalid table view section index"
+                                 userInfo:nil];
 }
 
 #pragma mark - Table view delegate
