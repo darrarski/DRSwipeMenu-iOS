@@ -178,6 +178,7 @@
 				TargetAttributes = {
 					31DA5EFD1ABCF70000370F59 = {
 						CreatedOnToolsVersion = 6.2;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
