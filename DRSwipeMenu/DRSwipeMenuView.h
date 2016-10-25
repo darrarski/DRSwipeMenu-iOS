@@ -30,6 +30,12 @@
 @property (nonatomic, assign) BOOL shouldDisableScrollingWhileDecelerating;
 
 /**
+ Scroll deceleration rate. Use UIScrollViewDecelerationRateNormal or 
+ UIScrollViewDecelerationRateFast.
+ */
+@property (nonatomic, assign) CGFloat scrollDeceleationRate;
+
+/**
  Set the main view that should be displayed when menu is in its initial,
  closed state.
 

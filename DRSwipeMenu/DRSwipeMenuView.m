@@ -45,6 +45,18 @@
     [self.scrollView autolayoutFillSuperview];
 }
 
+#pragma mark - Properties
+
+- (CGFloat)scrollDecelerationRate
+{
+    return self.scrollView.decelerationRate;
+}
+
+- (void)setScrollDeceleationRate:(CGFloat)scrollDeceleationRate
+{
+    self.scrollView.decelerationRate = scrollDeceleationRate;
+}
+
 #pragma mark - Subviews
 
 - (DRSwipeMenuScrollView *)scrollView
