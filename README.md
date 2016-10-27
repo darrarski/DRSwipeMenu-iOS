@@ -6,19 +6,9 @@ Customizable swipe-to-reveal menu for iOS apps. Compatible with iOS 7 and later,
 
 ## Instalation
 
-You can integrate `DRSwipeMenu` with your project using Cocoapods. To do so, you will need to add one of the following lines to your Podfile:
-
-For stable release (recommended):
+You can integrate `DRSwipeMenu` with your project using Cocoapods. To do so, you will need to add following line to your Podfile:
 
     pod 'DRSwipeMenu', '~> 2.0'
-
-Which creates dependency for version `>= 2.0.0` and `< 3.0.0`
-
-For most recent or exact development version (not recommended on production):
-
-    pod 'DRSwipeMenu', :git => 'https://github.com/darrarski/DRSwipeMenu-iOS.git', :tag => 'VERSION_TAG'
-
-Where `VERSION_TAG` you should put tag name for given version (ex. "v2.0.2"). It is recommended to set version explicity instead of using most recent version, as backward compatibility is not warranted.
 
 You can also download zip archive of given release from [releases page](https://github.com/darrarski/DRSwipeMenu-iOS/releases).
 
