@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'DRSwipeMenu'
-  s.version               = '2.0.3'
+  s.version               = '2.0.4'
   s.summary               = 'Customizable swipe-to-reveal menu for iOS apps'
   s.homepage              = 'https://github.com/darrarski/DRSwipeMenu-iOS'
   s.author                = { 'Dariusz Rybicki' => 'darrarski@gmail.com' }

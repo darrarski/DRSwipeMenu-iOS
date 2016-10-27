@@ -2,6 +2,13 @@
 
 ## Changelog
 
+##### v2.0.4
+
+> - Fix revelaing right menu without animation
+> - Minor improvements
+
+> [see diff](../../compare/v2.0.3...v2.0.4)
+
 ##### v2.0.3
 
 > - Added `scrollDeceleationRate` property to `DRSwipeMenuView`
