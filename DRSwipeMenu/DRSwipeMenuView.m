@@ -196,16 +196,19 @@
 - (void)revealLeftMenuAnimated:(BOOL)animated
 {
     [self.scrollView scrollToLeftMenuAnimated:animated];
+    self.scrollView.scrollEnabled = YES;
 }
 
 - (void)revealRightMenuAnimated:(BOOL)animated
 {
     [self.scrollView scrollToRightMenuAnimated:animated];
+    self.scrollView.scrollEnabled = YES;
 }
 
 - (void)closeMenuAnimated:(BOOL)animated
 {
     [self.scrollView scrollToMainViewAnimated:animated];
+    self.scrollView.scrollEnabled = YES;
 }
 
 - (BOOL)isLeftMenuRevealed
