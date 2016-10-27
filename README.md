@@ -1,6 +1,6 @@
 # DRSwipeMenu (iOS)
 
-Customizable swipe-to-reveal menu for iOS apps. Compatible with iOS 7 and later, tested under iOS 7 and iOS 8.
+Customizable swipe-to-reveal menu for iOS apps. Originally implemented with support for iOS 7 and later. Currently compatible and tested on iOS 10. Written in Objective-C, but can be used in Swift projects as well.
 
 ![DRSwipeMenu iOS screenshot 1](Misc/DRSwipeMenu-iOS-screenshot-1.png "DRSwipeMenu iOS screenshot 1") ![DRSwipeMenu iOS screenshot 2](Misc/DRSwipeMenu-iOS-screenshot-2.gif "DRSwipeMenu iOS screenshot 2")
 
