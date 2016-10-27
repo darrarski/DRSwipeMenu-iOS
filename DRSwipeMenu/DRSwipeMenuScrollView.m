@@ -151,7 +151,10 @@
         [self scrollRectToVisible:rect animated:YES];
     }
     else {
-        self.contentOffset = rect.origin;
+        self.contentOffset = (CGPoint) {
+            .x = rect.origin.x - MAX(0, self.frame.size.width - rect.size.width),
+            .y = rect.origin.y
+        };
     }
 }
 
