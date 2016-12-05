@@ -2,6 +2,12 @@
 
 ## Changelog
 
+##### v2.0.5
+
+> - Add `previewLeftMenuAnimated:offset:` and `previewRightMenuAnimated:offset:` methods to `DRSwipeMenuView`
+
+> [see diff](../../compare/v2.0.4...v2.0.5)
+
 ##### v2.0.4
 
 > - Fix revelaing right menu without animation
