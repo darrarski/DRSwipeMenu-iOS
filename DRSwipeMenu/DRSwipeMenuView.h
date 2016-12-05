@@ -105,6 +105,22 @@
 - (void)revealRightMenuAnimated:(BOOL)animated;
 
 /**
+ Reveal left menu for preview
+
+ @param animated Perform with animation
+ @param offset How much menu should be revealed (in points)
+ */
+- (void)previewLeftMenuAnimated:(BOOL)animated offset:(CGFloat)offset;
+
+/**
+ Reveal right swipe menu for preview
+
+ @param animated Perform with animation
+ @param offset How much menu should be revealed (in points)
+ */
+- (void)previewRightMenuAnimated:(BOOL)animated offset:(CGFloat)offset;
+
+/**
  Bring menu back to initial, closed state. Left and right swipe menus will not
  be revealed.
 

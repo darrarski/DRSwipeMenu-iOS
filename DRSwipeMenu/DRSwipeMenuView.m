@@ -205,6 +205,44 @@
     self.scrollView.scrollEnabled = YES;
 }
 
+- (void)previewLeftMenuAnimated:(BOOL)animated offset:(CGFloat)offset
+{
+    CGRect rect = (CGRect) {
+        .origin.x = self.scrollView.leftMenuItemViewsContainer.frame.origin.x + self.scrollView.leftMenuItemViewsContainer.frame.size.width - offset,
+        .origin.y = 0,
+        .size.width = offset,
+        .size.height = self.scrollView.frame.size.height
+    };
+
+    if (animated) {
+        [self.scrollView scrollRectToVisible:rect animated:YES];
+    }
+    else {
+        self.scrollView.contentOffset = rect.origin;
+    }
+}
+
+- (void)previewRightMenuAnimated:(BOOL)animated offset:(CGFloat)offset
+{
+    CGRect rect = (CGRect) {
+        .origin.x = self.scrollView.rightMenuItemViewsContainer.frame.origin.x,
+        .origin.y = 0,
+        .size.width = offset,
+        .size.height = self.scrollView.frame.size.height
+    };
+
+    if (animated) {
+        [self.scrollView scrollRectToVisible:rect animated:YES];
+    }
+    else {
+        self.scrollView.contentOffset = (CGPoint) {
+            .x = rect.origin.x - MAX(0, self.scrollView.frame.size.width - rect.size.width),
+            .y = rect.origin.y
+        };
+    }
+    self.scrollView.scrollEnabled = YES;
+}
+
 - (void)closeMenuAnimated:(BOOL)animated
 {
     [self.scrollView scrollToMainViewAnimated:animated];
