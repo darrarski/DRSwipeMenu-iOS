@@ -14,7 +14,7 @@ You can also download zip archive of given release from [releases page](https://
 
 ## Usage
 
-Check out included example project. It shows how to use swipe menu on `UITableViewCell`, but menu could be embedded anywhere in the view hierarchy.
+Check out included example project. It shows how to use swipe menu on `UITableViewCell`, but menu could be embedded anywhere in the view hierarchy. All public headers are documented.
 
 ## Changelog
 
